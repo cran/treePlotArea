@@ -1,0 +1,219 @@
+%\VignetteIndexEntry{An Introduction to treePlotArea}
+\documentclass[a4paper]{article}
+\bibliographystyle{unsrt}
+\usepackage{listings}
+\lstset{ %
+basicstyle=\footnotesize
+, commentstyle=\color{PineGreen}
+, numberstyle=\tiny\color{Gray}
+, rulecolor=\color{Black}
+, keywordstyle=\color{Blue}
+, stringstyle=\color{Sepia}
+, showstringspaces=false
+, language=R
+}
+\usepackage[%
+    colorlinks=true,
+    pdfborder={0 0 0},
+    linkcolor=blue
+]{hyperref}
+
+\usepackage[utf8]{inputenc}
+\title{An Introduction to treePlotArea}
+\author{Andreas Dominik Cullmann}
+
+\SweaveOpts{echo=false}
+\SweaveOpts{eval=false}
+\SweaveOpts{print=false}
+\SweaveOpts{width=4.5}
+\SweaveOpts{height=5}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{What treePlotArea Does}
+The German national forest inventory uses angle count
+sampling, a sampling method invented by Bitterlich in 1947
+(\cite{bitterlich1947}) and
+extended by Grosenbaugh \cite{grosenbaugh1952} as probability proportional to
+size sampling.
+When plots are located near stand boundaries, their sizes and hence
+their probabilities need to be corrected.
+
+\subsection{Why corrections?}
+As you can see in Figure \ref{fig:bwi2022de}, a screenshot from \texttt{bwi2022de},
+the software used for the field surveys of the German national forest inventory in 2022,
+the tree plot area of tree 7 of corner 2 of tract 166 gets intersected by two
+stand boundaries.
+So its plot area needs to be corrected.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics{teb_166_2_7.png}
+  \caption{Tree plot from \texttt{bwi2022de}.}
+  \label{fig:bwi2022de}
+\end{figure}
+\subsection{What did we do before?}
+Until now, the German national forest inventory used a program called
+\texttt{grenzkreis} that was written by Bernhard B\"o{}sch at the Forest Research
+Institute of Baden-W\"u{}rttemberg.
+It is written in C++, poorly documented and, to our poor understanding, hard to maintain.
+The last version dates from March 2011.
+We felt the need to re-write the library in R.
+Gerald K\"a{}ndler used \texttt{grenzkreis} to provide reference data to this package, which we use for testing.
+
+\subsection{Single Tree Plot Areas}
+If we give a tract, corner and tree id, we can plot the effective tree plot area
+and output the ratio of the theoretical (red) to the effective (green) tree plot area:
+
+<<ptpa, echo = TRUE, eval = TRUE, fig=FALSE>>==
+library("treePlotArea")
+tnr <- 166
+enr <- 2
+bnr <- 7
+angle_counts <- bw2bwi2022de(get(data("trees",
+                                      package = "treePlotArea")))
+boundaries <- get(data("boundaries", package = "treePlotArea"))
+cf <- plot_tree_plot_area(angle_counts = angle_counts,
+                          boundaries = boundaries,
+                          tnr =  tnr, enr = enr, bnr = bnr,
+                          frame_factor = 0.35)
+@
+
+<<echo = FALSE, eval = TRUE, fig = TRUE>>==
+<<ptpa>>
+@
+
+Now we compare the correction factor to the reference value given by
+\texttt{grenzkreis}:
+<<cf, echo = TRUE, eval = TRUE, fig=FALSE>>==
+print(cf)
+angle_counts[angle_counts[["tnr"]] == tnr &
+             angle_counts[["enr"]] == enr &
+             angle_counts[["bnr"]] == bnr, "kf2"]
+@
+This is rather close, the difference probably due to different approximations
+of circles by polygons in the two libraries/packages.
+
+
+\subsection{Tree Plot Areas for Forest Inventories}
+Of course we do not look at single trees, we want to get the correction factors
+for collections of trees.
+
+<<cf, echo = TRUE, eval = TRUE, fig=FALSE>>==
+nrow(angle_counts)
+nrow(boundaries)
+correction_factors <- get_correction_factors(angle_counts,
+                                             boundaries,
+                                             verbose = FALSE)
+print(subset(correction_factors, tnr == 166 & enr == 2))
+@
+
+We check that the correction factors do not differ too much from the reference
+values:
+<<comparison, echo = TRUE, eval = TRUE>>==
+m <- merge(angle_counts[TRUE, c("tnr", "enr", "bnr",
+                                "kf2", "pk", "stp")],
+           correction_factors)
+m[["diff"]] <- m[["correction_factor"]] - m[["kf2"]]
+m <- select_valid_angle_count_trees(m)
+rdiff <- ifelse(m[["kf2"]] == 0,
+                m[["diff"]] / (m[["kf2"]] + 1e-10),
+                m[["diff"]] / m[["kf2"]])
+works <- RUnit::checkTrue(all(abs(rdiff) < 0.001))
+if (works) {
+    print("Concurs with tests in runit/")
+} else {
+    stop("Break vignette.")
+}
+@
+
+\section{Customizing Data}
+We have used data coming with package: one data frame containing angle counts
+(trees), and one containing boundaries.
+
+The names of the data columns essential to this package are retrieved from the 
+global
+option \texttt{treePlotArea}.
+We can set it to its default (which is done by the package wherever needed
+without overwriting an slots in that list already set) and then inspect it:
+
+<<options, echo = TRUE, eval = TRUE>>==
+set_options()
+str(getOption("treePlotArea"))
+@
+
+
+The columns of our data frames could have different names (we just convert them 
+to upper case here):
+<<data_rename, echo = TRUE, eval = TRUE>>==
+names(angle_counts) <- toupper(names(angle_counts))
+names(boundaries) <- toupper(names(boundaries))
+@
+
+We would then have to set the options accordingly
+<<data_options, echo = TRUE, eval = TRUE>>==
+option_list <- sapply(get_defaults(), function(x) lapply(x, toupper))
+set_options(angle_counts = option_list[["angle_counts"]],
+            boundaries = option_list[["boundaries"]])
+@
+
+and the results stay the same:
+<<data_runit, echo = TRUE, eval = TRUE>>==
+correction_factors_upper <- get_correction_factors(angle_counts,
+                                                   boundaries,
+                                                   verbose = FALSE)
+RUnit::checkEquals(correction_factors_upper, correction_factors,
+                   checkNames = FALSE)
+@
+
+
+\section{How treePlotArea Works}
+This is the rather technical part, you might not be interested \ldots
+
+\subsection{Flexed Boundaries}
+First, we decide whether a flexed boundary is flexed towards the center of the
+corner or away from it:
+
+<<ptpa_1, echo = TRUE, eval = TRUE, fig=TRUE>>==
+cf <- plot_tree_plot_area(angle_counts = angle_counts,
+                          boundaries = boundaries,
+                          tnr =  tnr, enr = enr, bnr = bnr,
+                          frame_factor = 1)
+@
+
+Yellow lines mark boundaries flexed away from the center,
+blue ones boundaries flexed towards it.
+
+\paragraph{How do we decide whether a flexed boundary is `flexed towards the center`?}
+We build triangles from each flexed boundary that intersect a circle with a
+radius of 50 km. If the tree coordinates do  fall into that triangle, the
+boundary is  `flexed towards the center`.
+
+
+\subsection{Boundary Polygons}
+We then build polygons (depending on the type of boundary):
+<<ptpa_4, echo = TRUE, eval = TRUE, fig=TRUE>>==
+cf <- plot_tree_plot_area(angle_counts = angle_counts,
+                          boundaries = boundaries,
+                          tnr =  tnr, enr = enr, bnr = bnr,
+                          frame_factor = 4)
+@
+
+Boundaries flexed towards the center are split into two straight lines.
+For each straight line, a square `away from the center` is defined.
+For boundaries flexed away, pentagon `away from the center` are defined.
+
+`Away from the center` means that the polygons are created such that their
+corner towards the center lie on a circle with radius 100 meter.
+We choose this value because for a tree with a breast height diameter of 2000
+millimeter, the tree plot area for angle count factor 4 (which is used in the
+German national forest inventory) will be a circle with a radius of 50m. We just
+double that value to make sure no tree plot area could possibly stick out of our
+polygons somewhere.
+We then use package \texttt{sf} to intersect the tree plot area with the
+boundary polygons.
+That's it.
+
+\bibliography{bibliography}
+\end{document}
