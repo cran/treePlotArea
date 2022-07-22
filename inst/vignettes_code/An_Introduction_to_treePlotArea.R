@@ -9,6 +9,7 @@ enr <- 2
 bnr <- 7
 angle_counts <- bw2bwi2022de(get(data("trees",
                                       package = "treePlotArea")))
+angle_counts <- select_valid_angle_count_trees(angle_counts)
 boundaries <- get(data("boundaries", package = "treePlotArea"))
 cf <- plot_tree_plot_area(angle_counts = angle_counts,
                           boundaries = boundaries,
@@ -17,7 +18,7 @@ cf <- plot_tree_plot_area(angle_counts = angle_counts,
 
 
 ###################################################
-### code chunk number 2: An_Introduction_to_treePlotArea.Rnw:83-84
+### code chunk number 2: An_Introduction_to_treePlotArea.Rnw:84-85
 ###################################################
 library("treePlotArea")
 tnr <- 166
@@ -25,6 +26,7 @@ enr <- 2
 bnr <- 7
 angle_counts <- bw2bwi2022de(get(data("trees",
                                       package = "treePlotArea")))
+angle_counts <- select_valid_angle_count_trees(angle_counts)
 boundaries <- get(data("boundaries", package = "treePlotArea"))
 cf <- plot_tree_plot_area(angle_counts = angle_counts,
                           boundaries = boundaries,
@@ -42,24 +44,52 @@ angle_counts[angle_counts[["tnr"]] == tnr &
 
 
 ###################################################
-### code chunk number 4: cf
+### code chunk number 4: nrow
 ###################################################
 nrow(angle_counts)
 nrow(boundaries)
-correction_factors <- get_correction_factors(angle_counts,
-                                             boundaries,
-                                             verbose = FALSE)
-print(subset(correction_factors, tnr == 166 & enr == 2))
 
 
 ###################################################
-### code chunk number 5: comparison
+### code chunk number 5: cf
+###################################################
+correction_factors <- get_correction_factors(angle_counts,
+                                             boundaries,
+                                             verbose = FALSE)
+
+
+###################################################
+### code chunk number 6: cft
+###################################################
+# Fake the above warning swallowed up by Sweave
+w <- tryCatch(
+              correction_factors <- get_correction_factors(angle_counts,
+                                                           boundaries,
+                                                           verbose = FALSE),
+              warning = identity
+)
+cat("Warning message:", w$message, sep = "\n")
+
+
+###################################################
+### code chunk number 7: bo
+###################################################
+subset(boundaries, tnr == 2607)
+
+
+###################################################
+### code chunk number 8: cf
+###################################################
+print(subset(correction_factors, tnr == 2607 & enr == 2))
+
+
+###################################################
+### code chunk number 9: comparison
 ###################################################
 m <- merge(angle_counts[TRUE, c("tnr", "enr", "bnr",
                                 "kf2", "pk", "stp")],
            correction_factors)
 m[["diff"]] <- m[["correction_factor"]] - m[["kf2"]]
-m <- select_valid_angle_count_trees(m)
 rdiff <- ifelse(m[["kf2"]] == 0,
                 m[["diff"]] / (m[["kf2"]] + 1e-10),
                 m[["diff"]] / m[["kf2"]])
@@ -72,21 +102,21 @@ if (works) {
 
 
 ###################################################
-### code chunk number 6: options
+### code chunk number 10: options
 ###################################################
 set_options()
 str(getOption("treePlotArea"))
 
 
 ###################################################
-### code chunk number 7: data_rename
+### code chunk number 11: data_rename
 ###################################################
 names(angle_counts) <- toupper(names(angle_counts))
 names(boundaries) <- toupper(names(boundaries))
 
 
 ###################################################
-### code chunk number 8: data_options
+### code chunk number 12: data_options
 ###################################################
 option_list <- sapply(get_defaults(), function(x) lapply(x, toupper))
 set_options(angle_counts = option_list[["angle_counts"]],
@@ -94,7 +124,7 @@ set_options(angle_counts = option_list[["angle_counts"]],
 
 
 ###################################################
-### code chunk number 9: data_runit
+### code chunk number 13: data_runit
 ###################################################
 correction_factors_upper <- get_correction_factors(angle_counts,
                                                    boundaries,
@@ -104,7 +134,7 @@ RUnit::checkEquals(correction_factors_upper, correction_factors,
 
 
 ###################################################
-### code chunk number 10: ptpa_1
+### code chunk number 14: ptpa_1
 ###################################################
 cf <- plot_tree_plot_area(angle_counts = angle_counts,
                           boundaries = boundaries,
@@ -113,7 +143,7 @@ cf <- plot_tree_plot_area(angle_counts = angle_counts,
 
 
 ###################################################
-### code chunk number 11: ptpa_4
+### code chunk number 15: ptpa_4
 ###################################################
 cf <- plot_tree_plot_area(angle_counts = angle_counts,
                           boundaries = boundaries,

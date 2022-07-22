@@ -45,7 +45,8 @@ bw2bwi2022de <- function(x) {
 
 #' Select Valid Angle Counts Only
 #'
-#' The data coming with this package was processed by Gerald Kaendler for the
+#' The tree data coming with this package was processed by Gerald Kaendler for
+#' the
 #' country of  Baden-Wuerttemberg, and is the reference for testing as he
 #' adjusted diameter measurements to breast height where they had been measured
 #' in diverging heights (due to deformations of trees at breast height).

@@ -4,7 +4,12 @@
 \alias{get_correction_factors}
 \title{Correction Factors for Tree Plot Areas Intersected by Stand Boundaries}
 \usage{
-get_correction_factors(angle_counts, boundaries, verbose = TRUE)
+get_correction_factors(
+  angle_counts,
+  boundaries,
+  verbose = TRUE,
+  stop_on_error = FALSE
+)
 }
 \arguments{
 \item{angle_counts}{A \code{\link{data.frame}} containing angle counts.
@@ -28,32 +33,57 @@ output of
 \code{\link{get_boundary_polygons}}.}
 
 \item{verbose}{Be verbose?}
+
+\item{stop_on_error}{Passed to \code{\link{get_boundary_polygons}}.}
 }
 \value{
-A  \code{\link{data.frame}} containing the correction factors.
+A  \code{\link{data.frame}} containing the correction factors and a
+status giving information on possibly errors.
 }
 \description{
 Get correction factors for an angle count table (i.e. a
 \code{\link{data.frame}}) and a corresponding boundary
-table (i.e. a \code{\link{data.frame}}) .
+table (i.e. a \code{\link{data.frame}}).
+}
+\details{
+The columns in the names have to be named according to the values of
+\code{getOption("treePlotArea")}.
+If they do not: you can either rename the columns
+or set the option accordingly, probably using \code{\link{set_options}}.
 }
 \examples{
 data("trees", "boundaries", package = "treePlotArea")
-# For CRAN's sake draw a subset
-tracts <-  c(sample(boundaries$tnr, 20), 10056)
+
+# For CRAN's sake: draw a subset
+tracts <-  c(sample(boundaries[["tnr"]], 20), 10056)
+
+# Calculate correction factors
 trees <- subset(trees, tnr \%in\% tracts)
 boundaries <- subset(boundaries, tnr \%in\% tracts)
 angle_counts <- bw2bwi2022de(trees)
+validate_data(x = boundaries)
+validate_data(x = angle_counts)
 boundary_polygons <- get_boundary_polygons(boundaries)
 correction_factors <- get_correction_factors(angle_counts, boundary_polygons)
+summary(correction_factors$info)
+
+#  Select valid angle count trees only
+valid_angle_counts <- select_valid_angle_count_trees(angle_counts)
+correction_factors <- get_correction_factors(valid_angle_counts,
+                                             boundary_polygons)
+summary(correction_factors$info)
+
 # Select a single tree
 tnr <- 10056
 enr <- 4
 bnr <- 3
-tree <- angle_counts[angle_counts[["tnr"]] == tnr &
-                     angle_counts[["enr"]] == enr &
-                     angle_counts[["bnr"]] == bnr, TRUE]
+tree <- valid_angle_counts[valid_angle_counts[["tnr"]] == tnr &
+                     valid_angle_counts[["enr"]] == enr &
+                     valid_angle_counts[["bnr"]] == bnr, TRUE]
 bounds <- boundaries[boundaries[["tnr"]] == tnr & boundaries[["enr"]] == enr,
                      TRUE]
 get_correction_factors(tree, bounds)
+}
+\seealso{
+set_options
 }

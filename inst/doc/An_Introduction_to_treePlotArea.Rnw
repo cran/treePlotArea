@@ -57,7 +57,7 @@ So its plot area needs to be corrected.
 Until now, the German national forest inventory used a program called
 \texttt{grenzkreis} that was written by Bernhard B\"o{}sch at the Forest Research
 Institute of Baden-W\"u{}rttemberg.
-It is written in C++, poorly documented and, to our poor understanding, hard to maintain.
+It is written in C++, poorly documented and, to our limited understanding, hard to maintain.
 The last version dates from March 2011.
 We felt the need to re-write the library in R.
 Gerald K\"a{}ndler used \texttt{grenzkreis} to provide reference data to this package, which we use for testing.
@@ -73,6 +73,7 @@ enr <- 2
 bnr <- 7
 angle_counts <- bw2bwi2022de(get(data("trees",
                                       package = "treePlotArea")))
+angle_counts <- select_valid_angle_count_trees(angle_counts)
 boundaries <- get(data("boundaries", package = "treePlotArea"))
 cf <- plot_tree_plot_area(angle_counts = angle_counts,
                           boundaries = boundaries,
@@ -100,13 +101,42 @@ of circles by polygons in the two libraries/packages.
 Of course we do not look at single trees, we want to get the correction factors
 for collections of trees.
 
-<<cf, echo = TRUE, eval = TRUE, fig=FALSE>>==
+<<nrow, echo = TRUE, eval = TRUE, fig=FALSE>>==
 nrow(angle_counts)
 nrow(boundaries)
+@
+
+<<cf, echo = TRUE, eval = TRUE, fig=FALSE>>==
 correction_factors <- get_correction_factors(angle_counts,
                                              boundaries,
                                              verbose = FALSE)
-print(subset(correction_factors, tnr == 166 & enr == 2))
+@
+<<cft, echo = FALSE, eval = TRUE, fig=FALSE, results=verbatim, print = FALSE>>==
+# Fake the above warning swallowed up by Sweave
+w <- tryCatch(
+              correction_factors <- get_correction_factors(angle_counts,
+                                                           boundaries,
+                                                           verbose = FALSE),
+              warning = identity
+)
+cat("Warning message:", w$message, sep = "\n")
+@
+There's a warning above about an invalid boundary.
+It is the one in
+tract 2607, corner 2: azimuth values in \texttt{spa\_gon} and
+\texttt{spk\_gon} are identical:
+
+<<bo, echo = TRUE, eval = TRUE, fig=FALSE>>==
+subset(boundaries, tnr == 2607)
+@
+That means it runs exactly through the plot.
+Anyway, since
+\texttt{grenzkreis} dealt with it, we do that too (although we shouldn't, see \\
+\texttt{help("get\_boundary\_polygons", package = "treePlotArea")} \\for
+more on
+this):
+<<cf, echo = TRUE, eval = TRUE, fig=FALSE>>==
+print(subset(correction_factors, tnr == 2607 & enr == 2))
 @
 
 We check that the correction factors do not differ too much from the reference
@@ -116,7 +146,6 @@ m <- merge(angle_counts[TRUE, c("tnr", "enr", "bnr",
                                 "kf2", "pk", "stp")],
            correction_factors)
 m[["diff"]] <- m[["correction_factor"]] - m[["kf2"]]
-m <- select_valid_angle_count_trees(m)
 rdiff <- ifelse(m[["kf2"]] == 0,
                 m[["diff"]] / (m[["kf2"]] + 1e-10),
                 m[["diff"]] / m[["kf2"]])
@@ -132,7 +161,7 @@ if (works) {
 We have used data coming with package: one data frame containing angle counts
 (trees), and one containing boundaries.
 
-The names of the data columns essential to this package are retrieved from the 
+The names of the data columns essential to this package are retrieved from the
 global
 option \texttt{treePlotArea}.
 We can set it to its default (which is done by the package wherever needed
@@ -144,7 +173,7 @@ str(getOption("treePlotArea"))
 @
 
 
-The columns of our data frames could have different names (we just convert them 
+The columns of our data frames could have different names (we just convert them
 to upper case here):
 <<data_rename, echo = TRUE, eval = TRUE>>==
 names(angle_counts) <- toupper(names(angle_counts))

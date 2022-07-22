@@ -9,6 +9,7 @@
 #' If both points have the same value for x, no function exists. Then
 #' the intercept is \code{\link{NA}} and the slope gives the value of x.
 #' @export
+#' @family geometry functions
 #' @keywords internal
 #' @examples
 #' points2equation(c(0, 4), c(1, 5))

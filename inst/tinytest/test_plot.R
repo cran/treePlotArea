@@ -14,4 +14,4 @@ tree <- trees[trees[["tnr"]] == tnr & trees[["enr"]] == enr &
               trees[["bnr"]] == bnr, TRUE]
 bounds <- boundaries[boundaries$tnr == tnr & boundaries$enr == enr, TRUE]
 expectation <- get_correction_factors(tree, bounds)
-expect_identical(result, expectation$correction_factor)
+expect_identical(result$correction_factor, expectation$correction_factor)

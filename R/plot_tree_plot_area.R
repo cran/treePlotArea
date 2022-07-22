@@ -5,6 +5,7 @@
 #' @param tnr Number of the tract.
 #' @param enr Number of the tract's corner.
 #' @param bnr Number of the corner's tree.
+#' @param use_sub Use the subtitle (or leave it blank)? Stick with the default.
 #' @param frame_factor Plotting from as a factor of the tree plot area. Stick
 #' with the default.
 #' @return The corrections factor for the tree's plot area
@@ -19,7 +20,7 @@
 #'                                           package = "treePlotArea")),
 #'                     tnr =  tnr, enr = enr, bnr = bnr, frame_factor = 4)
 plot_tree_plot_area <- function(angle_counts, boundaries, tnr, enr, bnr,
-                                frame_factor = 4) {
+                                frame_factor = 4, use_sub = TRUE) {
     options <- get_options("all")
     o_a <- options[["angle_counts"]]
     o_b <- options[["boundaries"]]
@@ -27,6 +28,7 @@ plot_tree_plot_area <- function(angle_counts, boundaries, tnr, enr, bnr,
     col_plot1 <- "black"
     col_plot2 <- "gray74"
     col_tree <- "red"
+    col_tree_center <- "cyan"
     col_border_tetragon <- "blue"
     col_border_pentagon <- "yellow"
     col_boundaries <- "orange"
@@ -61,45 +63,21 @@ plot_tree_plot_area <- function(angle_counts, boundaries, tnr, enr, bnr,
          border = col_plot1)
     plot(sf::st_polygon(list(circle2polygon(r = 2 * get_r_max()))), add = TRUE,
          border = col_plot2)
-    graphics::points(tree[["x"]], tree[["y"]], pch = "+", col = col_tree)
+    graphics::points(tree[["x"]], tree[["y"]], pch = "+", col = col_tree_center)
     add_boundaries_to_plot(coords)
     add_boundaries_to_plot(as.data.frame(coords_split),
                            col = c(col_border_tetragon, col_border_pentagon))
 
     bl <- get_boundary_polygons(bounds)
-    res <- get_correction_factor(tree, bl)
-    return(res)
-}
-
-
-add_boundaries_to_plot <- function(coords, col = NA) {
-    if (any(is.na(col))) {
-        colour <- c("black", "black")
-        type <- "l"
+    res <- get_correction_factor(tree, bl)["correction_factor"]
+    if (isTRUE(use_sub)) {
+        graphics::title(main = paste("tract:", tnr, "corner:", enr, "tree:",
+                                     bnr),
+                        sub = paste("correction factor:", res))
     } else {
-        colour <- col
-        type <- "b"
+        graphics::title(main = paste("tract:", tnr, "corner:", enr, "tree:",
+                                     bnr,
+                                     "correction factor:", res))
     }
-    lw <- 2
-    for (n_border in seq.int(nrow(coords))) {
-        if (is.na(coords[n_border, "x0"])) {
-            graphics::lines(
-                            rbind(unlist(coords[n_border,
-                                         grep("1$", names(coords))]),
-                                  unlist(coords[n_border,
-                                         grep("2$", names(coords))])),
-                            col = colour[1], type = type, lwd = lw
-                            )
-        } else {
-            graphics::lines(
-                            rbind(unlist(coords[n_border,
-                                         grep("1$", names(coords))]),
-                                  unlist(coords[n_border,
-                                         grep("0$", names(coords))]),
-                                  unlist(coords[n_border,
-                                         grep("2$", names(coords))])),
-                            col = colour[2], type = type, lwd = lw
-                            )
-        }
-    }
+    return(res)
 }

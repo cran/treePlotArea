@@ -24,4 +24,10 @@ we want to get an equation of form
 \examples{
 points2equation(c(0, 4), c(1, 5))
 }
+\seealso{
+Other geometry functions: 
+\code{\link{get_intersection}()},
+\code{\link{vector_length}()}
+}
+\concept{geometry functions}
 \keyword{internal}

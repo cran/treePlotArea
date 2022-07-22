@@ -4,7 +4,7 @@
 \alias{secant_intersections}
 \title{Calculate Intersections of Circle by a Straight Line}
 \usage{
-secant_intersections(a, b, r)
+secant_intersections(a, b, r, verbose = FALSE)
 }
 \arguments{
 \item{a}{The secant's intercept.}
@@ -12,6 +12,8 @@ secant_intersections(a, b, r)
 \item{b}{The secant's slope.}
 
 \item{r}{The circle's radius}
+
+\item{verbose}{Be verbose?}
 }
 \value{
 A matrix of x und y values. For a tangent, both rows are identical,
@@ -24,7 +26,7 @@ slope-intercept from.
 \examples{
 secant_intersections(a = 0, b = 1, r = 2)
 # A tangent
-secant_intersections(a = 2, b = 0, r = 2)
+secant_intersections(a = 2, b = 0, r = 2, verbose = TRUE)
 # Missing the circle
 secant_intersections(a = 3, b = 0, r = 2)
 # Creating a circle boundary approximation

@@ -1,12 +1,15 @@
 Package: treePlotArea
 Title: Correction Factors for Tree Plot Areas Intersected by Stand
         Boundaries
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: 
     c(person("Andreas Dominik", "Cullmann", , "fvafrcu@mailbox.org", 
     role = c("aut", "cre")),
     person(given = "Bernhard",
              family = "Bösch",
+             role = "ctb"),
+    person(given = "Christoph",
+             family = "Fischer",
              role = "ctb"),
     person(given = "Gerald",
              family = "Kändler",
@@ -23,7 +26,7 @@ Description: The German national forest inventory uses angle count sampling,
 License: BSD_2_clause + file LICENSE
 URL: https://gitlab.com/fvafrcu/treePlotArea.git
 Depends: R (>= 4.0.0)
-Imports: fritools, graphics, sf
+Imports: fritools, graphics, sf, stats
 Suggests: knitr, pkgload, plotrix, rmarkdown, rprojroot, RUnit,
         testthat, tinytest
 VignetteBuilder: knitr
@@ -32,10 +35,11 @@ Language: en-US
 LazyData: true
 RoxygenNote: 7.2.0
 NeedsCompilation: no
-Packaged: 2022-07-09 22:20:39 UTC; qwer
+Packaged: 2022-07-22 09:02:01 UTC; qwer
 Author: Andreas Dominik Cullmann [aut, cre],
   Bernhard Bösch [ctb],
+  Christoph Fischer [ctb],
   Gerald Kändler [ctb]
 Maintainer: Andreas Dominik Cullmann <fvafrcu@mailbox.org>
 Repository: CRAN
-Date/Publication: 2022-07-14 09:30:06 UTC
+Date/Publication: 2022-07-22 09:20:02 UTC

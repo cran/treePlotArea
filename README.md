@@ -33,7 +33,7 @@ help("treePlotArea-package", package = "treePlotArea")
 #> 
 #>      The German national forest inventory uses angle count sampling, a
 #>      sampling method first published by Bitterlich (1947) and extended
-#>      by Grosenbaugh (1958) as probability proportional to size
+#>      by Grosenbaugh (1952) as probability proportional to size
 #>      sampling. When plots are located near stand boundaries, their
 #>      sizes and hence their probabilities need to be corrected.
 #> 
