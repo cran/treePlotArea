@@ -2,6 +2,7 @@
 
 export(bw2bwi2022de)
 export(bwi2cartesian)
+export(check_boundaries)
 export(get_boundary_polygons)
 export(get_boundary_radius)
 export(get_correction_factors)

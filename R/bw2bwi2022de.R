@@ -57,6 +57,8 @@ bw2bwi2022de <- function(x) {
 #' values computed by \command{grenzkreis} because we would not be able to
 #' easily find the keys to merge the data. \emph{So this function is probably of
 #' no use to you.}
+#' And we remove trees with a diameter at breast height greater than zero and a
+#' distance of 0, for these tree should not be there.
 #' @param x A tree data set, typically
 #' \code{get(data(trees, package = "treePlotArea"))}.
 #' @param sample_type An indicator giving the type of sample the tree was
@@ -69,8 +71,10 @@ bw2bwi2022de <- function(x) {
 #' @examples
 #' trees <- get(data("trees", package = "treePlotArea"))
 #' fritools::is_valid_primary_key(trees, c("tnr", "enr", "bnr"))
+#' subset(trees, entf == 0 & bhd2 > 0 & stp == 0)
 #' angle_counts <- select_valid_angle_count_trees(trees)
 #' fritools::is_valid_primary_key(angle_counts, c("tnr", "enr", "bnr"))
+#' subset(angle_counts, entf == 0 & bhd2 > 0 & stp == 0)
 select_valid_angle_count_trees <- function(x, sample_type = "stp",
                                            tree_status = "pk") {
     options <- get_options("angle_counts")
@@ -80,5 +84,7 @@ select_valid_angle_count_trees <- function(x, sample_type = "stp",
                !is.na(res[[options[["dbh"]]]]) &
                !is.na(res[[options[["distance"]]]]),
            TRUE]
+    res <- res[!(res[[options[["distance"]]]] == 0 &
+                 res[[options[["dbh"]]]] > 0), TRUE]
     return(res)
 }

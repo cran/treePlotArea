@@ -17,9 +17,9 @@ Could be
 \code{get(data("boundaries", package = "treePlotArea"))}.}
 
 \item{stop_on_error}{Throw an error if invalid boundaries are encountered?
-(There is at least one boundary in the 2022 survey,
-tract 2607, corner 2, boundary 1, which exactly
-splits the plot. There is no stand defined that way!).}
+(There was tract 6878, corner 1, boundary 1 in the federal
+database for the 2012 survey, runs through the plot.
+There is no stand defined that way!).}
 
 \item{clean_data}{Omit invalid boundaries in any further calculations?}
 }
@@ -33,17 +33,10 @@ function.
 }
 \examples{
 boundaries <- get(data("boundaries", package = "treePlotArea"))
-# For the boundary in tract 2607, corner 2 the azimuth values in `spa_gon`
-# and `spk_gon` are identical:
-subset(boundaries, tnr == 2607) # It runs exactly through the plot!
-try(boundary_polygons <- get_boundary_polygons(boundaries))
-boundary_polygons <- get_boundary_polygons(boundaries, stop_on_error = FALSE)
-# There are boundaries in  tract 2607, corner 1, and in corner 2:
-length(boundary_polygons[["2607"]][["1"]])
-length(boundary_polygons[["2607"]][["2"]])
-boundary_polygons <- get_boundary_polygons(boundaries, stop_on_error = FALSE,
-                                           clean_data = TRUE)
-# Now there's boundaries in in tract 2607, corner 1, but not in corner 2:
-length(boundary_polygons[["2607"]][["1"]])
-length(boundary_polygons[["2607"]][["2"]])
+boundary_polygons <- get_boundary_polygons(boundaries)
 }
+\seealso{
+Other boundary functions: 
+\code{\link{check_boundaries}()}
+}
+\concept{boundary functions}

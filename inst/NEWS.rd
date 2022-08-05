@@ -1,6 +1,19 @@
 \name{NEWS}
 \title{NEWS}
 
+\section{Changes in version 1.2.0}{
+\itemize{
+\item Exported function \code{check_boundaries()}. It looks for invalid boundaries, one
+of which occurs in the federal database of the 2012 survey.
+\item \code{select_valid_angle_count_trees()} now removes trees with a diameter at breast
+height greater than zero and a distance of 0, for these tree should not be
+there.
+Gerald/grenzkreis gives a warning, but assigns a correction factor >= 1.
+Probably, these trees get filter out somewhere down the food chain.
+We assign a correction factor of 0 instead of only issue a warning.
+}
+}
+
 \section{Changes in version 1.1.0}{
 \itemize{
 \item We are checking for boundaries that happen to run through a tract's corner.

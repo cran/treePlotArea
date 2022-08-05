@@ -22,9 +22,11 @@ if (interactive()) {
 test_get_correction_factors <- function() {
     if (fritools::is_running_on_fvafrcu_machines("fvafr")) {
         # use the data stored in R/sysdata.rda
+        trees <- treePlotArea:::trees
+        boundaries <- treePlotArea:::boundaries
     } else {
-        data(trees, package = "treePlotArea")
-        data(boundaries, package = "treePlotArea")
+        trees <- get(data(trees, package = "treePlotArea"))
+        boundaries <- get(data(boundaries, package = "treePlotArea"))
     }
 
     angle_counts <- select_valid_angle_count_trees(bw2bwi2022de(trees))
@@ -40,7 +42,7 @@ test_get_correction_factors <- function() {
     m$rdiff <- ifelse(m[["kf2"]] == 0,
                       m[["diff"]] / (m[["kf2"]] + 1e-10),
                       m[["diff"]] / m[["kf2"]])
-    RUnit::checkTrue(all(abs(m$rdiff) < 0.001))
+    RUnit::checkTrue(all(abs(m$rdiff) < 0.01))
     # set the options to use different names in the data.
     names(angle_counts) <- toupper(names(angle_counts))
     names(boundaries) <- toupper(names(boundaries))

@@ -59,32 +59,7 @@ correction_factors <- get_correction_factors(angle_counts,
 
 
 ###################################################
-### code chunk number 6: cft
-###################################################
-# Fake the above warning swallowed up by Sweave
-w <- tryCatch(
-              correction_factors <- get_correction_factors(angle_counts,
-                                                           boundaries,
-                                                           verbose = FALSE),
-              warning = identity
-)
-cat("Warning message:", w$message, sep = "\n")
-
-
-###################################################
-### code chunk number 7: bo
-###################################################
-subset(boundaries, tnr == 2607)
-
-
-###################################################
-### code chunk number 8: cf
-###################################################
-print(subset(correction_factors, tnr == 2607 & enr == 2))
-
-
-###################################################
-### code chunk number 9: comparison
+### code chunk number 6: comparison
 ###################################################
 m <- merge(angle_counts[TRUE, c("tnr", "enr", "bnr",
                                 "kf2", "pk", "stp")],
@@ -102,21 +77,21 @@ if (works) {
 
 
 ###################################################
-### code chunk number 10: options
+### code chunk number 7: options
 ###################################################
 set_options()
 str(getOption("treePlotArea"))
 
 
 ###################################################
-### code chunk number 11: data_rename
+### code chunk number 8: data_rename
 ###################################################
 names(angle_counts) <- toupper(names(angle_counts))
 names(boundaries) <- toupper(names(boundaries))
 
 
 ###################################################
-### code chunk number 12: data_options
+### code chunk number 9: data_options
 ###################################################
 option_list <- sapply(get_defaults(), function(x) lapply(x, toupper))
 set_options(angle_counts = option_list[["angle_counts"]],
@@ -124,7 +99,7 @@ set_options(angle_counts = option_list[["angle_counts"]],
 
 
 ###################################################
-### code chunk number 13: data_runit
+### code chunk number 10: data_runit
 ###################################################
 correction_factors_upper <- get_correction_factors(angle_counts,
                                                    boundaries,
@@ -134,7 +109,7 @@ RUnit::checkEquals(correction_factors_upper, correction_factors,
 
 
 ###################################################
-### code chunk number 14: ptpa_1
+### code chunk number 11: ptpa_1
 ###################################################
 cf <- plot_tree_plot_area(angle_counts = angle_counts,
                           boundaries = boundaries,
@@ -143,7 +118,7 @@ cf <- plot_tree_plot_area(angle_counts = angle_counts,
 
 
 ###################################################
-### code chunk number 15: ptpa_4
+### code chunk number 12: ptpa_4
 ###################################################
 cf <- plot_tree_plot_area(angle_counts = angle_counts,
                           boundaries = boundaries,

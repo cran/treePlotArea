@@ -111,33 +111,33 @@ correction_factors <- get_correction_factors(angle_counts,
                                              boundaries,
                                              verbose = FALSE)
 @
-<<cft, echo = FALSE, eval = TRUE, fig=FALSE, results=verbatim, print = FALSE>>==
-# Fake the above warning swallowed up by Sweave
-w <- tryCatch(
-              correction_factors <- get_correction_factors(angle_counts,
-                                                           boundaries,
-                                                           verbose = FALSE),
-              warning = identity
-)
-cat("Warning message:", w$message, sep = "\n")
-@
-There's a warning above about an invalid boundary.
-It is the one in
-tract 2607, corner 2: azimuth values in \texttt{spa\_gon} and
-\texttt{spk\_gon} are identical:
-
-<<bo, echo = TRUE, eval = TRUE, fig=FALSE>>==
-subset(boundaries, tnr == 2607)
-@
-That means it runs exactly through the plot.
-Anyway, since
-\texttt{grenzkreis} dealt with it, we do that too (although we shouldn't, see \\
-\texttt{help("get\_boundary\_polygons", package = "treePlotArea")} \\for
-more on
-this):
-<<cf, echo = TRUE, eval = TRUE, fig=FALSE>>==
-print(subset(correction_factors, tnr == 2607 & enr == 2))
-@
+%  <<cft, echo = FALSE, eval = TRUE, fig=FALSE, results=verbatim, print = FALSE>>==
+%  # Fake the above warning swallowed up by Sweave
+%  w <- tryCatch(
+%                correction_factors <- get_correction_factors(angle_counts,
+%                                                             boundaries,
+%                                                             verbose = FALSE),
+%                warning = identity
+%  )
+%  cat("Warning message:", w$message, sep = "\n")
+%  @
+%  There's a warning above about an invalid boundary.
+%  It is the one in
+%  tract 2607, corner 2: azimuth values in \texttt{spa\_gon} and
+%  \texttt{spk\_gon} are identical:
+%
+%  <<bo, echo = TRUE, eval = TRUE, fig=FALSE>>==
+%  subset(boundaries, tnr == 2607)
+%  @
+%  That means it runs exactly through the plot.
+%  Anyway, since
+%  \texttt{grenzkreis} dealt with it, we do that too (although we shouldn't, see \\
+%  \texttt{help("get\_boundary\_polygons", package = "treePlotArea")} \\for
+%  more on
+%  this):
+%  <<cf, echo = TRUE, eval = TRUE, fig=FALSE>>==
+%  print(subset(correction_factors, tnr == 2607 & enr == 2))
+%  @
 
 We check that the correction factors do not differ too much from the reference
 values:
