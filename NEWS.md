@@ -1,3 +1,12 @@
+# treePlotArea 1.3.0
+
+* We now check that trees include the corner's center in their plot area and
+  otherwise assign a correction factor of 0.
+  Such trees occur when the diameters where not measured at  breast height and
+  got corrected. Otherwise, `bwi2022de` would have complained about them being
+  invalid sample trees.
+* Streamlined internal status codes.
+
 # treePlotArea 1.2.0
 
 * Exported function `check_boundaries()`. It looks for invalid boundaries, one

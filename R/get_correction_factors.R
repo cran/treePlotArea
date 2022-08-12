@@ -1,12 +1,13 @@
+# FIXME: I need status codes for trees and boundaries in different scales,
+# they need to be converted to logical
 get_status_codes <- function() {
-    res  <- c("corner has boundaries" = -1,
-              "corner has no boundaries" = 0,
-              "tree behind boundary" = 1,
-              "dbh = 0" = 2,
-              "azimuth not in [0, 400]" = 10,
-              "distance <= 0" = 11,
-              "dbh <= 0" = 12,
-              "error in angle_counts" = 20)
+    res  <- c("regular tree" = 0,
+              "azimuth not in [0, 400]" = 1,
+              "distance <= 0" = 2,
+              "dbh <= 0" = 3,
+              "tree behind boundary" = 10,
+              "corner's center outside tree's plot area" = 20,
+              "error in angle_counts" = 30)
     return(res)
 }
 is_tree_behind_a_boundary <- function(tree, boundaries) {
@@ -30,8 +31,11 @@ check_tree <- function(x) {
         res <- status_codes["distance <= 0"]
     } else if (x[[options[["dbh"]]]] <= 0) {
         res <- status_codes[["dbh <= 0"]]
+    } else if (get_boundary_radius(x[[options[["dbh"]]]], unit = "cm") <
+               x[[options[["distance"]]]]) {
+        res <- status_codes[["corner's center outside tree's plot area"]]
     } else {
-        res <- TRUE
+        res <- status_codes[["regular tree"]]
     }
     return(res)
 }
@@ -47,21 +51,16 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE) {
     if (is.data.frame(x)) {
         tree <- x
     } else {
-        tree <-  as.data.frame(as.list(x))
+        tree <- as.data.frame(as.list(x))
     }
     check <- check_tree(tree)
-    if (isTRUE(check)) {
+    if (fritools::is_success(check)) {
         t <- as.character(tree[[options[["tract_id"]]]])
         e <- as.character(tree[[options[["corner_id"]]]])
         b <- boundary_polygons[[t]][[e]]
         if (is.null(b)) {
-            if (isTRUE(all.equal(tree[[options[["dbh"]]]], 0))) {
-                correction_factor <- 1
-                code <- status_codes[["dbh = 0"]]
-            } else {
-                correction_factor <- 1
-                code <- status_codes[["corner has no boundaries"]]
-            }
+            correction_factor <- 1
+            code <- status_codes[["regular tree"]]
         } else {
             tree[, c("x", "y")] <- bwi2cartesian(tree[[options[["azimuth"]]]],
                                                  tree[[options[["distance"]]]])
@@ -73,7 +72,7 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE) {
                 pc <- get_partial_circle(cir, b)
                 correction_factor <- sf::st_area(sf::st_polygon(list(cir))) /
                     sf::st_area(pc)
-                code <-  status_codes[["corner has boundaries"]]
+                code <- status_codes[["regular tree"]]
             }
         }
     } else {

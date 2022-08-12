@@ -64,10 +64,7 @@ correction_factors <- get_correction_factors(angle_counts,
 m <- merge(angle_counts[TRUE, c("tnr", "enr", "bnr",
                                 "kf2", "pk", "stp")],
            correction_factors)
-m[["diff"]] <- m[["correction_factor"]] - m[["kf2"]]
-rdiff <- ifelse(m[["kf2"]] == 0,
-                m[["diff"]] / (m[["kf2"]] + 1e-10),
-                m[["diff"]] / m[["kf2"]])
+rdiff <- fritools::relative_difference(m[["correction_factor"]], m[["kf2"]])
 works <- RUnit::checkTrue(all(abs(rdiff) < 0.001))
 if (works) {
     print("Concurs with tests in runit/")

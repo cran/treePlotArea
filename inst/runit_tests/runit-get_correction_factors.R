@@ -1,11 +1,30 @@
 if (interactive()) pkgload::load_all(".")
 
+test_check_tree <- function() {
+    check_tree <- treePlotArea:::check_tree
+    tnr <- 10056
+    enr <- 4
+    bnr <- 3
+    trees <- bw2bwi2022de(get0(data("trees", package = "treePlotArea")))
+    trees <- select_valid_angle_count_trees(trees)
+    tree <- trees[trees[["tnr"]] == tnr & trees[["enr"]] == enr &
+                  trees[["bnr"]] == bnr,
+              TRUE]
+    RUnit::checkTrue(fritools::is_success(check_tree(tree)))
+    tree$bhd <- 328
+    tree$hori <- 835
+    RUnit::checkIdentical(check_tree(tree), 20)
+}
+if (interactive()) {
+    test_check_tree()
+}
+
 
 test_get_correction_factor <- function() {
     tnr <- 10056
     enr <- 4
     bnr <- 3
-    expectation <- list(correction_factor = 1.40212570888359, code = -1)
+    expectation <- list(correction_factor = 1.40212570888359, code = 0)
     trees <- bw2bwi2022de(get0(data("trees", package = "treePlotArea")))
     trees <- select_valid_angle_count_trees(trees)
     boundaries <- get(data("boundaries", package = "treePlotArea"))
@@ -38,11 +57,9 @@ test_get_correction_factors <- function() {
     m <- merge(angle_counts[TRUE, c("tnr", "enr", "bnr", "kf2",
                                     "pk", "stp", "bhd", "hori")],
                correction_factors)
-    m[["diff"]] <- m[["correction_factor"]] - m[["kf2"]]
-    m$rdiff <- ifelse(m[["kf2"]] == 0,
-                      m[["diff"]] / (m[["kf2"]] + 1e-10),
-                      m[["diff"]] / m[["kf2"]])
-    RUnit::checkTrue(all(abs(m$rdiff) < 0.01))
+    rdiff <- fritools::relative_difference(m[["correction_factor"]], m[["kf2"]])
+    RUnit::checkTrue(all(abs(rdiff) < 0.01))
+
     # set the options to use different names in the data.
     names(angle_counts) <- toupper(names(angle_counts))
     names(boundaries) <- toupper(names(boundaries))
