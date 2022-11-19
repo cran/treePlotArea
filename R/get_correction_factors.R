@@ -54,7 +54,7 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE) {
         tree <- as.data.frame(as.list(x))
     }
     check <- check_tree(tree)
-    if (fritools::is_success(check)) {
+    if (fritools_is_success(check)) {
         t <- as.character(tree[[options[["tract_id"]]]])
         e <- as.character(tree[[options[["corner_id"]]]])
         b <- boundary_polygons[[t]][[e]]
@@ -96,17 +96,15 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE) {
 #' @param angle_counts A \code{\link{data.frame}} containing angle counts.
 #' It has to have columns named by the contents of
 #' either\cr
-#' \code{\link{get_defaults}("angle_counts")} or \cr
-#' \code{fritools::get_options(package_name = "treePlotArea",
-#'       flatten_list = FALSE )[["angle_counts"]]}.\cr
+#' \code{\link{get_defaults}()[["angle_counts"]]} or \cr
+#' \code{getOption("treePlotArea")[["angle_counts"]]}.\cr
 #' Could be
 #' \code{bw2bwi2022de(get(data("trees", package = "treePlotArea")))}).
 #' @param boundaries A \code{\link{data.frame}} containing boundaries.
 #' It has to have columns named by the contents of
 #' either\cr
-#' \code{\link{get_defaults}("boundaries"} or \cr
-#' \code{fritools::get_options(package_name = "treePlotArea",
-#'       flatten_list = FALSE )[["boundaries"]]}.\cr
+#' \code{\link{get_defaults}()[["boundaries"]]} or \cr
+#' \code{getOption("treePlotArea")[["boundaries"]]}.\cr
 #' Could be
 #' \code{get(data("boundaries", package = "treePlotArea"))} or the
 #' output of
@@ -131,13 +129,13 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE) {
 #' validate_data(x = angle_counts)
 #' boundary_polygons <- get_boundary_polygons(boundaries)
 #' correction_factors <- get_correction_factors(angle_counts, boundary_polygons)
-#' summary(correction_factors$info)
+#' summary(correction_factors$status)
 #'
 #' #  Select valid angle count trees only
 #' valid_angle_counts <- select_valid_angle_count_trees(angle_counts)
 #' correction_factors <- get_correction_factors(valid_angle_counts,
 #'                                              boundary_polygons)
-#' summary(correction_factors$info)
+#' summary(correction_factors$status)
 #'
 #' # Select a single tree
 #' tnr <- 10056

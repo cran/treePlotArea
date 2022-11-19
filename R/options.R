@@ -55,15 +55,14 @@ get_defaults <- function() {
 
 #' Set Default Options for \pkg{treePlotArea}
 #'
-#' This is just a convenience wrapper to
-#' \code{\link[fritools:set_options]{fritools::set_options}}.
+#' Just convenience function for \code{\link{options}}.
 #' \pkg{treePlotArea} has a set of default options to define the columns of the
 #' \code{\link{data.frame}s} that are passed to
 #' \code{\link{get_correction_factors}}.
 #' See \code{\link{get_defaults}} for a description of these options.
-#' @param ...  See \code{\link[fritools:set_options]{fritools::set_options}}.
+#' @param ... See \code{\link{options}}.
 #' Leave empty to initialize the defaults if need be.
-#' @return See \code{\link[fritools:set_options]{fritools::set_options}}.
+#' @template return_invisibly_true
 #' @family option functions
 #' @export
 #' @examples
@@ -102,7 +101,7 @@ set_options <- function(...) {
                             "` for package treePlotArea."))
             }
         }
-        res <- fritools::set_options(..., package_name = "treePlotArea",
+        res <- fritools_set_options(..., package_name = "treePlotArea",
                                      overwrite = TRUE)
     }
     return(invisible(res))
@@ -110,7 +109,7 @@ set_options <- function(...) {
 
 set_defaults <- function() {
   defaults <- get_defaults()
-  res <- fritools::set_options(defaults, package_name = "treePlotArea",
+  res <- fritools_set_options(defaults, package_name = "treePlotArea",
                                overwrite = FALSE)
   return(res)
 }
@@ -119,10 +118,10 @@ get_options <- function(type = c("angle_counts", "boundaries", "all")) {
     set_defaults()
     t <- match.arg(type)
     if (t == "all") {
-        res <- fritools::get_options(package_name = "treePlotArea",
+        res <- fritools_get_options(package_name = "treePlotArea",
                                      flatten_list = FALSE)
     } else {
-        res <- fritools::get_options(package_name = "treePlotArea",
+        res <- fritools_get_options(package_name = "treePlotArea",
                                      flatten_list = FALSE)[[t]]
     }
     return(res)

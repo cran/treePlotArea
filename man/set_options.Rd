@@ -7,15 +7,15 @@
 set_options(...)
 }
 \arguments{
-\item{...}{See \code{\link[fritools:set_options]{fritools::set_options}}.
+\item{...}{See \code{\link{options}}.
 Leave empty to initialize the defaults if need be.}
 }
 \value{
-See \code{\link[fritools:set_options]{fritools::set_options}}.
+\code{\link[base:invisible]{Invisibly}}
+\code{\link[base:TRUE]{TRUE}}.
 }
 \description{
-This is just a convenience wrapper to
-\code{\link[fritools:set_options]{fritools::set_options}}.
+Just convenience function for \code{\link{options}}.
 \pkg{treePlotArea} has a set of default options to define the columns of the
 \code{\link{data.frame}s} that are passed to
 \code{\link{get_correction_factors}}.

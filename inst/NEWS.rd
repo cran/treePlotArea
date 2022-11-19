@@ -1,6 +1,13 @@
 \name{NEWS}
 \title{NEWS}
 
+\section{Changes in version 1.3.1}{
+\itemize{
+\item Get rid of importing fritools.
+\item Fixed typo in docs.
+}
+}
+
 \section{Changes in version 1.3.0}{
 \itemize{
 \item We now check that trees include the corner's center in their plot area and

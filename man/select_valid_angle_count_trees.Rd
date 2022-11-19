@@ -37,10 +37,8 @@ distance of 0, for these tree should not be there.
 }
 \examples{
 trees <- get(data("trees", package = "treePlotArea"))
-fritools::is_valid_primary_key(trees, c("tnr", "enr", "bnr"))
 subset(trees, entf == 0 & bhd2 > 0 & stp == 0)
 angle_counts <- select_valid_angle_count_trees(trees)
-fritools::is_valid_primary_key(angle_counts, c("tnr", "enr", "bnr"))
 subset(angle_counts, entf == 0 & bhd2 > 0 & stp == 0)
 }
 \seealso{

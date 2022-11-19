@@ -17,11 +17,9 @@
 #' }
 #' So we add two variables holding the diameter in millimeter and the horizontal
 #' distance in centimeter, named by the output of \cr
-#' \code{fritools::get_options(package_name =
-#' "treePlotArea")["angle_counts.dbh"]}\cr
+#' \code{getOption("treePlotArea")[["angle_counts"]][["dbh"]]}\cr
 #' and\cr
-#' \code{fritools::get_options(package_name =
-#' "treePlotArea")["angle_counts.distance"]}\cr
+#' \code{getOption("treePlotArea")[["angle_counts"]][["distance"]]}\cr
 #' respectively.
 #' @param x A tree data set, typically
 #' \code{get(data("trees", package = "treePlotArea"))}.
@@ -70,10 +68,8 @@ bw2bwi2022de <- function(x) {
 #' @export
 #' @examples
 #' trees <- get(data("trees", package = "treePlotArea"))
-#' fritools::is_valid_primary_key(trees, c("tnr", "enr", "bnr"))
 #' subset(trees, entf == 0 & bhd2 > 0 & stp == 0)
 #' angle_counts <- select_valid_angle_count_trees(trees)
-#' fritools::is_valid_primary_key(angle_counts, c("tnr", "enr", "bnr"))
 #' subset(angle_counts, entf == 0 & bhd2 > 0 & stp == 0)
 select_valid_angle_count_trees <- function(x, sample_type = "stp",
                                            tree_status = "pk") {

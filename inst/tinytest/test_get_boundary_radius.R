@@ -5,5 +5,5 @@ if (interactive()) {
 
 expectation <- 12.625
 br <- treePlotArea::get_boundary_radius(505, unit = "m")
-result <- fritools::strip_off_attributes(br)
+result <- as.numeric(br)
 expect_identical(result, expectation)

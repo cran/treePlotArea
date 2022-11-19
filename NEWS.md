@@ -1,3 +1,8 @@
+# treePlotArea 1.3.1
+
+* Get rid of importing fritools.
+* Fixed typo in docs.
+
 # treePlotArea 1.3.0
 
 * We now check that trees include the corner's center in their plot area and

@@ -31,11 +31,9 @@ from the federal database. He
 }
 So we add two variables holding the diameter in millimeter and the horizontal
 distance in centimeter, named by the output of \cr
-\code{fritools::get_options(package_name =
-"treePlotArea")["angle_counts.dbh"]}\cr
+\code{getOption("treePlotArea")[["angle_counts"]][["dbh"]]}\cr
 and\cr
-\code{fritools::get_options(package_name =
-"treePlotArea")["angle_counts.distance"]}\cr
+\code{getOption("treePlotArea")[["angle_counts"]][["distance"]]}\cr
 respectively.
 }
 \examples{

@@ -10,8 +10,8 @@ check_boundaries(x, stop_on_error = TRUE, clean_data = FALSE)
 \item{x}{A \code{\link{data.frame}} containing boundaries.
 It has to have columns named by the contents of
 either\cr
-\code{\link{get_defaults}("boundaries")} or \cr
-\code{fritools::get_options(package_name = "treePlotArea")[["boundaries"]]}.
+\code{\link{get_defaults}()[["boundaries"]]} or \cr
+\code{getOption("treePlotArea")[["boundaries"]]}.
 \cr
 Could be
 \code{get(data("boundaries", package = "treePlotArea"))}.}

@@ -6,8 +6,8 @@
 #' @param boundaries A \code{\link{data.frame}} containing boundaries.
 #' It has to have columns named by the contents of
 #' either\cr
-#' \code{\link{get_defaults}("boundaries")} or \cr
-#' \code{fritools::get_options(package_name = "treePlotArea")[["boundaries"]]}.
+#' \code{\link{get_defaults}()[["boundaries"]]} or \cr
+#' \code{getOption("treePlotArea")[["boundaries"]]}\cr.
 #' \cr
 #' Could be
 #' \code{get(data("boundaries", package = "treePlotArea"))}.
@@ -31,10 +31,10 @@ get_boundary_polygons <- function(boundaries, stop_on_error = TRUE,
                                            clean_data = clean_data)
     tract <- options[["tract_id"]]
     corner <- options[["corner_id"]]
-    res <- fritools::tapply(current_boundaries,
+    res <- fritools_tapply(current_boundaries,
                             index = list(current_boundaries[[tract]]),
                             function(boundaries) {
-                                fritools::tapply(boundaries,
+                                fritools_tapply(boundaries,
                                                  boundaries[[corner]],
                                                  boundaries2polygons,
                                                  simplify = FALSE)

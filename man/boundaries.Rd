@@ -39,7 +39,6 @@ für die vierte Bundeswaldinventur (2021 - 2022)}.
 }
 \examples{
 boundaries <- get(data("boundaries", package = "treePlotArea"))
-fritools::is_valid_primary_key(boundaries, c("tnr", "enr", "rnr"))
 }
 \references{
 \cite{

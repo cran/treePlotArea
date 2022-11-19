@@ -18,18 +18,16 @@ plot_tree_plot_area(
 \item{angle_counts}{A \code{\link{data.frame}} containing angle counts.
 It has to have columns named by the contents of
 either\cr
-\code{\link{get_defaults}("angle_counts")} or \cr
-\code{fritools::get_options(package_name = "treePlotArea",
-      flatten_list = FALSE )[["angle_counts"]]}.\cr
+\code{\link{get_defaults}()[["angle_counts"]]} or \cr
+\code{getOption("treePlotArea")[["angle_counts"]]}.\cr
 Could be
 \code{bw2bwi2022de(get(data("trees", package = "treePlotArea")))}).}
 
 \item{boundaries}{A \code{\link{data.frame}} containing boundaries.
 It has to have columns named by the contents of
 either\cr
-\code{\link{get_defaults}("boundaries"} or \cr
-\code{fritools::get_options(package_name = "treePlotArea",
-      flatten_list = FALSE )[["boundaries"]]}.\cr
+\code{\link{get_defaults}()[["boundaries"]]} or \cr
+\code{getOption("treePlotArea")[["boundaries"]]}.\cr
 Could be
 \code{get(data("boundaries", package = "treePlotArea"))} or the
 output of

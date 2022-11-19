@@ -139,20 +139,6 @@ correction_factors <- get_correction_factors(angle_counts,
 %  print(subset(correction_factors, tnr == 2607 & enr == 2))
 %  @
 
-We check that the correction factors do not differ too much from the reference
-values:
-<<comparison, echo = TRUE, eval = TRUE>>==
-m <- merge(angle_counts[TRUE, c("tnr", "enr", "bnr",
-                                "kf2", "pk", "stp")],
-           correction_factors)
-rdiff <- fritools::relative_difference(m[["correction_factor"]], m[["kf2"]])
-works <- RUnit::checkTrue(all(abs(rdiff) < 0.001))
-if (works) {
-    print("Concurs with tests in runit/")
-} else {
-    stop("Break vignette.")
-}
-@
 
 \section{Customizing Data}
 We have used data coming with package: one data frame containing angle counts

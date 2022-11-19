@@ -73,5 +73,4 @@
 #' @keywords datasets
 #' @examples
 #' boundaries <- get(data("boundaries", package = "treePlotArea"))
-#' fritools::is_valid_primary_key(boundaries, c("tnr", "enr", "rnr"))
 "boundaries"
