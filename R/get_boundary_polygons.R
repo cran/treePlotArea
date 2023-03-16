@@ -3,14 +3,7 @@
 #' Used by \code{\link{get_correction_factors}} to convert a boundary table
 #' to polygons. You may want to see the polygons, that is why we exported this
 #' function.
-#' @param boundaries A \code{\link{data.frame}} containing boundaries.
-#' It has to have columns named by the contents of
-#' either\cr
-#' \code{\link{get_defaults}()[["boundaries"]]} or \cr
-#' \code{getOption("treePlotArea")[["boundaries"]]}\cr.
-#' \cr
-#' Could be
-#' \code{get(data("boundaries", package = "treePlotArea"))}.
+#' @inheritParams get_correction_factors
 #' @param stop_on_error Throw an error if invalid boundaries are encountered?
 #' (There was tract 6878, corner 1, boundary 1 in the federal
 #' database for the 2012 survey, runs through the plot.

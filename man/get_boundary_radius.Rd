@@ -7,7 +7,7 @@
 get_boundary_radius(
   dbh,
   unit = c("mm", "cm", "dm", "m"),
-  couting_factor = 4,
+  counting_factor = 4,
   area = 10000
 )
 }
@@ -16,7 +16,7 @@ get_boundary_radius(
 
 \item{unit}{The unit for the return value.}
 
-\item{couting_factor}{The basal area factor used in counting the trees. For
+\item{counting_factor}{The basal area factor used in counting the trees. For
 tally trees in the German national forest inventory its value is 4 [m^2].}
 
 \item{area}{The reference surface in [m^2].}
@@ -30,8 +30,8 @@ breast height may be
 away from the center of the plot to still be part of the sample.
 }
 \details{
-\code{couting_factor} and \code{area} really don't have to be square
-meters as long as they are in the same unit.
+\code{counting_factor} and \code{area} really don't have to be
+square meters as long as they are in the same unit.
 }
 \examples{
 # A diameter at breast height of 50.5 cm

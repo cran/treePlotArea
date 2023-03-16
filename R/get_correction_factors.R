@@ -40,7 +40,8 @@ check_tree <- function(x) {
     return(res)
 }
 
-get_correction_factor <- function(x, boundaries, stop_on_error = FALSE) {
+get_correction_factor <- function(x, boundaries, stop_on_error = FALSE,
+                                  is_skip_check = FALSE, counting_factor = 4) {
     options <- get_options("angle_counts")
     status_codes <- get_status_codes()
     if (inherits(boundaries, "boundaries")) {
@@ -54,7 +55,7 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE) {
         tree <- as.data.frame(as.list(x))
     }
     check <- check_tree(tree)
-    if (fritools_is_success(check)) {
+    if (fritools_is_success(check) || isTRUE(is_skip_check)) {
         t <- as.character(tree[[options[["tract_id"]]]])
         e <- as.character(tree[[options[["corner_id"]]]])
         b <- boundary_polygons[[t]][[e]]
@@ -68,7 +69,7 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE) {
                 correction_factor <- 0
                 code <- status_codes[["tree behind boundary"]]
             } else {
-                cir <- tree2polygon(tree)
+                cir <- tree2polygon(tree, counting_factor = counting_factor)
                 pc <- get_partial_circle(cir, b)
                 correction_factor <- sf::st_area(sf::st_polygon(list(cir))) /
                     sf::st_area(pc)
@@ -110,7 +111,16 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE) {
 #' output of
 #' \code{\link{get_boundary_polygons}}.
 #' @param verbose Be verbose?
+#' @param counting_factor The basal area factor used in counting the trees. For
+#' tally trees in the German national forest inventory its value is 4 [m^2].
 #' @param stop_on_error Passed to \code{\link{get_boundary_polygons}}.
+#' @param skip_check We usually check if the angle counts are
+#' suitable,
+#' (for example whether a diameter at breast height, a horizontal distance and
+#' an azimuth
+#' measurement are given). Skip this check? This might be of interest if you
+#' want to check whether a deadwood plot (radius 5 m, centered around the
+#' corner) is intersected by a boundary.
 #' @seealso set_options
 #' @return A  \code{\link{data.frame}} containing the correction factors and a
 #' status giving information on possibly errors.
@@ -147,8 +157,28 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE) {
 #' bounds <- boundaries[boundaries[["tnr"]] == tnr & boundaries[["enr"]] == enr,
 #'                      TRUE]
 #' get_correction_factors(tree, bounds)
+#'
+#' # Dead wood plots:
+#' dead_wood_plots <- unique(trees[TRUE, c("tnr", "enr")])
+#' dead_wood_plots[["bnr"]] <- 0
+#' dead_wood_plots[["hori"]] <- 0
+#' dead_wood_plots[["azi"]] <- 0
+#' dead_wood_plots[["bhd"]] <- 200
+#' get_correction_factors(dead_wood_plots, boundary_polygons,
+#'                        skip_check = TRUE)
+#' # Set the deadwood plot's radius to 500 mm
+#' dead_wood_plots[["bhd"]] <- 5000
+#' # The counting factor has unit square meters per area.
+#' # Area is hardcoded to 10000 [square meters], so to get a plot radius that's
+#' # equal to the dbh, we need 2 * sqrt(counting_factor) / sqrt(10000) to be
+#' # equal to 1.
+#' get_correction_factors(dead_wood_plots, boundary_polygons,
+#'                        skip_check = TRUE,
+#'                        counting_factor = 2500)
 get_correction_factors <- function(angle_counts, boundaries,
-                                   verbose = TRUE, stop_on_error = FALSE) {
+                                   verbose = TRUE, stop_on_error = FALSE,
+                                   skip_check = FALSE,
+                                   counting_factor = 4) {
     options <- get_options("angle_counts")
     status_codes <- get_status_codes()
     if (inherits(boundaries, "boundaries")) {
@@ -169,7 +199,9 @@ get_correction_factors <- function(angle_counts, boundaries,
     }
     for (i in 1:k) { # apply() is much slower than the loop?!!!
         t <- angle_counts[i, TRUE]
-        cf <- tryCatch(get_correction_factor(t, boundary_polygons),
+        cf <- tryCatch(get_correction_factor(t, boundary_polygons,
+                                             is_skip_check = skip_check,
+                                             counting_factor = counting_factor),
                        error = error_func(status_codes))
         correction_factor <- rbind(correction_factor,
                                    cbind(t[[options[["tract_id"]]]],

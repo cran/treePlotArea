@@ -36,19 +36,20 @@ validate_data <- function(x, type = c(NA, "angle_counts", "boundaries"),
     if (all(o %in% names(x))) {
         df <- x[TRUE, unlist(o)]
         missing <- apply(df, 2, function(x) any(is.na(x)))
-        # flexing points in boundaries my be missing, so we skip these:
+        # flexing points in boundaries may be missing, so we skip these:
         missing <- missing[!names(missing) %in% c(o[["azimuth_flexing"]],
                                                   o[["distance_flexing"]])]
         msg <- paste0("Data \"", deparse(substitute(x)), "\" passed.")
         if (any(missing)) {
-            # flexing points in boundaries my be missing, so we skip these:
+            # flexing points in boundaries may be missing, so we skip these:
             df_names <- names(df)[!names(df) %in% c(o[["azimuth_flexing"]],
                                                     o[["distance_flexing"]])]
             msg <- paste0("Found missing values for \"",
                            paste(df_names[missing],
                                  collapse = "\", \""), "\". ")
             if (isTRUE(clean)) {
-                res <- stats::na.omit(df[TRUE, df_names])
+                omit <- stats::na.omit(df[TRUE, df_names])
+                res <- x[-as.integer(attr(omit, "na.action")), TRUE]
                 msg <- paste0(msg,
                               "Will omit these observations.\n",
                               "Original number of observations was ", nrow(df),

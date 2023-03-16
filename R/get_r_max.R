@@ -10,12 +10,12 @@
 #' @keywords internal
 #' @examples
 #' get_r_max()
-get_r_max <- function(couting_factor = 4, area = 1e04) {
+get_r_max <- function(counting_factor = 4, area = 1e04) {
     # Unit needs to be centimeter as this is the way the horizontal distance is
     # recorded.
     # A tree with a diameter at breast height of 2000 millimeter.
     # We don't expect any more.
     res <- get_boundary_radius(dbh = 2000, unit = "cm",
-                               couting_factor = couting_factor, area = area)
+                               counting_factor = counting_factor, area = area)
     return(res)
 }

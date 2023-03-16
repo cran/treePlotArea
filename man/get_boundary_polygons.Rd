@@ -11,10 +11,11 @@ get_boundary_polygons(boundaries, stop_on_error = TRUE, clean_data = FALSE)
 It has to have columns named by the contents of
 either\cr
 \code{\link{get_defaults}()[["boundaries"]]} or \cr
-\code{getOption("treePlotArea")[["boundaries"]]}\cr.
-\cr
+\code{getOption("treePlotArea")[["boundaries"]]}.\cr
 Could be
-\code{get(data("boundaries", package = "treePlotArea"))}.}
+\code{get(data("boundaries", package = "treePlotArea"))} or the
+output of
+\code{\link{get_boundary_polygons}}.}
 
 \item{stop_on_error}{Throw an error if invalid boundaries are encountered?
 (There was tract 6878, corner 1, boundary 1 in the federal

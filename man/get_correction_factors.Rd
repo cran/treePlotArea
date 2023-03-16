@@ -8,7 +8,9 @@ get_correction_factors(
   angle_counts,
   boundaries,
   verbose = TRUE,
-  stop_on_error = FALSE
+  stop_on_error = FALSE,
+  skip_check = FALSE,
+  counting_factor = 4
 )
 }
 \arguments{
@@ -33,6 +35,17 @@ output of
 \item{verbose}{Be verbose?}
 
 \item{stop_on_error}{Passed to \code{\link{get_boundary_polygons}}.}
+
+\item{skip_check}{We usually check if the angle counts are
+suitable,
+(for example whether a diameter at breast height, a horizontal distance and
+an azimuth
+measurement are given). Skip this check? This might be of interest if you
+want to check whether a deadwood plot (radius 5 m, centered around the
+corner) is intersected by a boundary.}
+
+\item{counting_factor}{The basal area factor used in counting the trees. For
+tally trees in the German national forest inventory its value is 4 [m^2].}
 }
 \value{
 A  \code{\link{data.frame}} containing the correction factors and a
@@ -81,6 +94,24 @@ tree <- valid_angle_counts[valid_angle_counts[["tnr"]] == tnr &
 bounds <- boundaries[boundaries[["tnr"]] == tnr & boundaries[["enr"]] == enr,
                      TRUE]
 get_correction_factors(tree, bounds)
+
+# Dead wood plots:
+dead_wood_plots <- unique(trees[TRUE, c("tnr", "enr")])
+dead_wood_plots[["bnr"]] <- 0
+dead_wood_plots[["hori"]] <- 0
+dead_wood_plots[["azi"]] <- 0
+dead_wood_plots[["bhd"]] <- 200
+get_correction_factors(dead_wood_plots, boundary_polygons,
+                       skip_check = TRUE)
+# Set the deadwood plot's radius to 500 mm
+dead_wood_plots[["bhd"]] <- 5000
+# The counting factor has unit square meters per area.
+# Area is hardcoded to 10000 [square meters], so to get a plot radius that's
+# equal to the dbh, we need 2 * sqrt(counting_factor) / sqrt(10000) to be
+# equal to 1.
+get_correction_factors(dead_wood_plots, boundary_polygons,
+                       skip_check = TRUE,
+                       counting_factor = 2500)
 }
 \seealso{
 set_options

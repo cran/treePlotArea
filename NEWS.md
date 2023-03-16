@@ -1,3 +1,13 @@
+# treePlotArea 1.4.0
+
+* Fixed `validate_data()` for boundaries (we accidentally deleted the flexing
+  points).
+* Now passing argument `counting_factor` from `get_corrections_factors()` down.
+* It is now possible to disable checking the angle counts in
+  `get_corrections_factors()` via argument `skip_check_angle_counts = TRUE`.
+  This enables us to check for concentric circles otherwise marked as invalid an
+  given correction factors of 0.
+
 # treePlotArea 1.3.1
 
 * Get rid of importing fritools.

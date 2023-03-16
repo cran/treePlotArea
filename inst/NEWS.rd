@@ -1,6 +1,18 @@
 \name{NEWS}
 \title{NEWS}
 
+\section{Changes in version 1.4.0}{
+\itemize{
+\item Fixed \code{validate_data()} for boundaries (we accidentially deleted the flexing
+points).
+\item Now passing argument \code{counting_factor} from \code{get_corrections_factors()} down.
+\item It is now possible to disable checking the angle counts in
+\code{get_corrections_factors()} via argument \code{skip_check_angle_counts = TRUE}.
+This enables us to check for concentric circles otherwise marked as invalid an
+given correction factors of 0.
+}
+}
+
 \section{Changes in version 1.3.1}{
 \itemize{
 \item Get rid of importing fritools.

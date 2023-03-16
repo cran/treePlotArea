@@ -1,5 +1,5 @@
-[![pipeline status](https://gitlab.com/fvafrcu/treePlotArea/badges/master/pipeline.svg)](https://gitlab.com/fvafrcu/treePlotArea/-/commits/master)    
-[![coverage report](https://gitlab.com/fvafrcu/treePlotArea/badges/master/coverage.svg)](https://gitlab.com/fvafrcu/treePlotArea/-/commits/master)
+[![pipeline status](https://gitlab.com/fvafrcu/treePlotArea/badges/master/pipeline.svg)](https://gitlab.com/fvafrcu/treeplotarea/-/commits/master)    
+[![coverage report](https://gitlab.com/fvafrcu/treePlotArea/badges/master/coverage.svg)](https://gitlab.com/fvafrcu/treeplotarea/-/commits/master)
 <!-- 
     [![Build Status](https://travis-ci.org/fvafrcu/treePlotArea?branch=master)](https://travis-ci.org/fvafrcu/treePlotArea)
     [![Coverage Status](https://codecov.io/github/fvafrcu/treePlotArea/coverage.svg?branch=master)](https://codecov.io/github/fvafrcu/treePlotArea?branch=master)

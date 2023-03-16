@@ -4,10 +4,10 @@
 \alias{get_r_max}
 \title{Get a Theoretical Maximum Distance for a Tree}
 \usage{
-get_r_max(couting_factor = 4, area = 10000)
+get_r_max(counting_factor = 4, area = 10000)
 }
 \arguments{
-\item{couting_factor}{The basal area factor used in counting the trees. For
+\item{counting_factor}{The basal area factor used in counting the trees. For
 tally trees in the German national forest inventory its value is 4 [m^2].}
 
 \item{area}{The reference surface in [m^2].}
