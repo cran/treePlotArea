@@ -55,7 +55,7 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE,
         tree <- as.data.frame(as.list(x))
     }
     check <- check_tree(tree)
-    if (fritools_is_success(check) || isTRUE(is_skip_check)) {
+    if (fritools::is_success(check) || isTRUE(is_skip_check)) {
         t <- as.character(tree[[options[["tract_id"]]]])
         e <- as.character(tree[[options[["corner_id"]]]])
         b <- boundary_polygons[[t]][[e]]

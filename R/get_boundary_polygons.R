@@ -24,10 +24,10 @@ get_boundary_polygons <- function(boundaries, stop_on_error = TRUE,
                                            clean_data = clean_data)
     tract <- options[["tract_id"]]
     corner <- options[["corner_id"]]
-    res <- fritools_tapply(current_boundaries,
+    res <- fritools::tapply(current_boundaries,
                             index = list(current_boundaries[[tract]]),
                             function(boundaries) {
-                                fritools_tapply(boundaries,
+                                fritools::tapply(boundaries,
                                                  boundaries[[corner]],
                                                  boundaries2polygons,
                                                  simplify = FALSE)
