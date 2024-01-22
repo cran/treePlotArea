@@ -45,8 +45,8 @@ validate_data <- function(x, type = c(NA, "angle_counts", "boundaries"),
             df_names <- names(df)[!names(df) %in% c(o[["azimuth_flexing"]],
                                                     o[["distance_flexing"]])]
             msg <- paste0("Found missing values for \"",
-                           paste(df_names[missing],
-                                 collapse = "\", \""), "\". ")
+                          paste(df_names[missing],
+                                collapse = "\", \""), "\". ")
             if (isTRUE(clean)) {
                 omit <- stats::na.omit(df[TRUE, df_names])
                 res <- x[-as.integer(attr(omit, "na.action")), TRUE]
@@ -63,8 +63,8 @@ validate_data <- function(x, type = c(NA, "angle_counts", "boundaries"),
         }
     } else {
         msg <- paste0("Can not find columns ",
-                     paste(o[!o %in% names(x)], collapse = ", "),
-                     " in ", deparse(substitute(x)), ".")
+                      paste(o[!o %in% names(x)], collapse = ", "),
+                      " in ", deparse(substitute(x)), ".")
         throw(msg)
     }
     message(msg)

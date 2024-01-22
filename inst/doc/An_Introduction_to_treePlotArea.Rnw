@@ -227,8 +227,8 @@ cf <- plot_tree_plot_area(angle_counts = angle_counts,
 @
 
 Boundaries flexed towards the center are split into two straight lines.
-For each straight line, a square `away from the center` is defined.
-For boundaries flexed away, pentagon `away from the center` are defined.
+For each of those two straight lines, a square `away from the center` is defined.
+For boundaries flexed away, pentagons `away from the center` are defined.
 
 `Away from the center` means that the polygons are created such that their
 corner towards the center lie on a circle with radius 100 meter.

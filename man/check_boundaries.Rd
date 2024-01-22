@@ -24,7 +24,8 @@ Could be
 A (possibly cleansed) \code{\link{data.frame}} containing boundaries.
 }
 \description{
-There is a boundary (tract 6878, corner 1, boundary 1)in the federal database
+There is a boundary (tract 6878, corner 1, boundary 1) in the federal
+database
 for the 2012 survey that runs exactly through the plot. If that boundary
 would be valid, at that corner the term "stand" is not defined.
 }

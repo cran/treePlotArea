@@ -48,8 +48,7 @@ get_defaults <- function() {
                                   distance_end = "spe_m",
                                   azimuth_start = "spa_gon",
                                   azimuth_flexing = "spk_gon",
-                                  azimuth_end = "spe_gon")
-                )
+                                  azimuth_end = "spe_gon"))
     return(res)
 }
 
@@ -87,8 +86,8 @@ set_options <- function(...) {
     index <- !names(option_list) %in% names(get_defaults())
     if (any(index)) {
         throw(paste0("Option(s) `",
-                    paste(names(option_list[index]), collapse = ", "),
-                    "` not defined as default(s) for package treePlotArea."))
+                     paste(names(option_list[index]), collapse = ", "),
+                     "` not defined as default(s) for package treePlotArea."))
     } else {
         for (i in seq(along = option_list)) {
             l <- option_list[[i]]
@@ -96,9 +95,9 @@ set_options <- function(...) {
             index  <- ! names(l) %in% names(d)
             if (any(index)) {
                 throw(paste0("Options for ",
-                            names(option_list[i]), " may not contain `",
-                            paste(names(l)[index], collapse = "`, `"),
-                            "` for package treePlotArea."))
+                             names(option_list[i]), " may not contain `",
+                             paste(names(l)[index], collapse = "`, `"),
+                             "` for package treePlotArea."))
             }
         }
         res <- fritools::set_options(..., package_name = "treePlotArea",
@@ -108,10 +107,10 @@ set_options <- function(...) {
 }
 
 set_defaults <- function() {
-  defaults <- get_defaults()
-  res <- fritools::set_options(defaults, package_name = "treePlotArea",
-                               overwrite = FALSE)
-  return(res)
+    defaults <- get_defaults()
+    res <- fritools::set_options(defaults, package_name = "treePlotArea",
+                                 overwrite = FALSE)
+    return(res)
 }
 
 get_options <- function(type = c("angle_counts", "boundaries", "all")) {

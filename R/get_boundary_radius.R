@@ -17,7 +17,7 @@
 #' get_boundary_radius(505, unit  = "m")
 #' get_boundary_radius(1000, unit  = "cm")
 get_boundary_radius <- function(dbh, unit = c("mm", "cm",
-                                          "dm", "m"),
+                                              "dm", "m"),
                                 counting_factor = 4,
                                 area = 1e04) {
     u <- match.arg(unit)

@@ -1,3 +1,11 @@
+# treePlotArea 1.5.0
+
+* As requested by Gerald Kaendler, 'plot_tree_plot_area()' now plots all trees
+  of a corner, if no tree number is given.
+* To allow for using the field data, I have added missing dbh to the internal
+  checks, albeit it being reported by `validate_data()`. Just in case I should
+  forget to validate data first.
+
 # treePlotArea 1.4.1
 
 * fritools back on CRAN.

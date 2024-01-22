@@ -5,6 +5,7 @@ get_status_codes <- function() {
               "azimuth not in [0, 400]" = 1,
               "distance <= 0" = 2,
               "dbh <= 0" = 3,
+              "dbh missing" = 4,
               "tree behind boundary" = 10,
               "corner's center outside tree's plot area" = 20,
               "error in angle_counts" = 30)
@@ -29,6 +30,8 @@ check_tree <- function(x) {
         res <- status_codes["azimuth not in [0, 400]"]
     } else if (x[[options[["distance"]]]] <= 0) {
         res <- status_codes["distance <= 0"]
+    } else if (is.na(x[[options[["dbh"]]]])) {
+        res <- status_codes[["dbh missing"]]
     } else if (x[[options[["dbh"]]]] <= 0) {
         res <- status_codes[["dbh <= 0"]]
     } else if (get_boundary_radius(x[[options[["dbh"]]]], unit = "cm") <
@@ -115,11 +118,12 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE,
 #' tally trees in the German national forest inventory its value is 4 [m^2].
 #' @param stop_on_error Passed to \code{\link{get_boundary_polygons}}.
 #' @param skip_check We usually check if the angle counts are
-#' suitable,
+#' suitable
 #' (for example whether a diameter at breast height, a horizontal distance and
 #' an azimuth
 #' measurement are given). Skip this check? This might be of interest if you
-#' want to check whether a deadwood plot (radius 5 m, centered around the
+#' want to check whether another plot with no dbh recorded (for example a
+#  deadwood plot (radius 5 m, centered around the
 #' corner) is intersected by a boundary.
 #' @seealso set_options
 #' @return A  \code{\link{data.frame}} containing the correction factors and a
@@ -207,8 +211,7 @@ get_correction_factors <- function(angle_counts, boundaries,
                                    cbind(t[[options[["tract_id"]]]],
                                          t[[options[["corner_id"]]]],
                                          t[[options[["tree_id"]]]],
-                                         rbind(unlist(cf)))
-                                   )
+                                         rbind(unlist(cf))))
         if (isTRUE(verbose) && k > 100) {
             utils::setTxtProgressBar(pb, i)
         }
@@ -220,7 +223,7 @@ get_correction_factors <- function(angle_counts, boundaries,
     names(res) <- c(options[["tract_id"]], options[["corner_id"]],
                     options[["tree_id"]], "correction_factor", "status")
     res[["status"]] <- factor(res[["status"]],
-                            labels = names(status_codes),
-                            levels = status_codes)
+                              labels = names(status_codes),
+                              levels = status_codes)
     return(res)
 }

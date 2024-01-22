@@ -2,16 +2,16 @@
 % Please edit documentation in R/plot_tree_plot_area.R
 \name{plot_tree_plot_area}
 \alias{plot_tree_plot_area}
-\title{Plot a Single Tree}
+\title{Plot Tree Plot Area}
 \usage{
 plot_tree_plot_area(
   angle_counts,
   boundaries,
   tnr,
   enr,
-  bnr,
-  frame_factor = 4,
-  use_sub = TRUE
+  bnr = NULL,
+  frame_factor = 1,
+  use_sub = NULL
 )
 }
 \arguments{
@@ -37,18 +37,18 @@ output of
 
 \item{enr}{Number of the tract's corner.}
 
-\item{bnr}{Number of the corner's tree.}
+\item{bnr}{If given, the number of a corner's tree.}
 
 \item{frame_factor}{Plotting from as a factor of the tree plot area. Stick
 with the default.}
 
-\item{use_sub}{Use the subtitle (or leave it blank)? Stick with the default.}
+\item{use_sub}{Deprecated.}
 }
 \value{
-The corrections factor for the tree's plot area
+The corrections factors for the trees' plot areas.
 }
 \description{
-Visualize a tree, it's plot area and its corner's boundaries.
+Visualize a corner, its boundaries and tree plot areas.
 }
 \examples{
 tnr <- 166
@@ -59,4 +59,8 @@ plot_tree_plot_area(angle_counts = angle_counts,
                     boundaries = get(data("boundaries",
                                           package = "treePlotArea")),
                     tnr =  tnr, enr = enr, bnr = bnr, frame_factor = 4)
+plot_tree_plot_area(angle_counts = angle_counts,
+                    boundaries = get(data("boundaries",
+                                          package = "treePlotArea")),
+                    tnr =  tnr, enr = enr, frame_factor = 1)
 }

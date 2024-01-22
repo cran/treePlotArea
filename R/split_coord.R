@@ -6,8 +6,7 @@ split_coord <- function(coord) {
                           x0 = c(NA, NA),
                           y0 = c(NA, NA),
                           x2 = c(coord[["x0"]], coord[["x2"]]),
-                          y2 = c(coord[["y0"]], coord[["y2"]])
-                          )
+                          y2 = c(coord[["y0"]], coord[["y2"]]))
     } else {
         res <- coord
     }

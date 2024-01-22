@@ -37,11 +37,11 @@ output of
 \item{stop_on_error}{Passed to \code{\link{get_boundary_polygons}}.}
 
 \item{skip_check}{We usually check if the angle counts are
-suitable,
+suitable
 (for example whether a diameter at breast height, a horizontal distance and
 an azimuth
 measurement are given). Skip this check? This might be of interest if you
-want to check whether a deadwood plot (radius 5 m, centered around the
+want to check whether another plot with no dbh recorded (for example a
 corner) is intersected by a boundary.}
 
 \item{counting_factor}{The basal area factor used in counting the trees. For
