@@ -1,7 +1,7 @@
 Package: treePlotArea
 Title: Correction Factors for Tree Plot Areas Intersected by Stand
         Boundaries
-Version: 1.5.0
+Version: 2.0.0
 Authors@R: 
     c(person("Andreas Dominik", "Cullmann", , "fvafrcu@mailbox.org", 
     role = c("aut", "cre")),
@@ -35,11 +35,11 @@ Language: en-US
 LazyData: true
 RoxygenNote: 7.2.3
 NeedsCompilation: no
-Packaged: 2024-01-22 11:13:08 UTC; qwer
+Packaged: 2024-01-29 13:16:10 UTC; qwer
 Author: Andreas Dominik Cullmann [aut, cre],
   Bernhard Bösch [ctb],
   Christoph Fischer [ctb],
   Gerald Kändler [ctb]
 Maintainer: Andreas Dominik Cullmann <fvafrcu@mailbox.org>
 Repository: CRAN
-Date/Publication: 2024-01-22 11:30:02 UTC
+Date/Publication: 2024-01-29 13:50:02 UTC

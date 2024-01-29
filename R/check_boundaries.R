@@ -22,10 +22,16 @@
 #' @return A (possibly cleansed) \code{\link{data.frame}} containing boundaries.
 #' @export
 #' @family boundary functions
+#' @examples
+#' data("boundaries", package = "treePlotArea")
+#' validate_data(x = boundaries)
+#' check_boundaries(boundaries)
 check_boundaries <- function(x, stop_on_error = TRUE, clean_data = FALSE) {
     options <- get_options("boundaries")
     res <- x
-    index_invalid <- apply(res, 1, goes_through_origin)
+    index_invalid <- NULL
+    for (i in seq_len(nrow(res))) 
+        index_invalid <- c(index_invalid, goes_through_origin(res[i, TRUE]))
     if (any(index_invalid)) {
         msg <- paste0("Found boundary through the plot in corner ",
                       res[index_invalid, options[["corner_id"]]],

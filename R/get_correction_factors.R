@@ -133,7 +133,7 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE,
 #' data("trees", "boundaries", package = "treePlotArea")
 #'
 #' # For CRAN's sake: draw a subset
-#' tracts <-  c(sample(boundaries[["tnr"]], 20), 10056)
+#' tracts <- c(sample(boundaries[["tnr"]], 20), 10056)
 #'
 #' # Calculate correction factors
 #' trees <- subset(trees, tnr %in% tracts)

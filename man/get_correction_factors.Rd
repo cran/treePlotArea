@@ -66,7 +66,7 @@ or set the option accordingly, probably using \code{\link{set_options}}.
 data("trees", "boundaries", package = "treePlotArea")
 
 # For CRAN's sake: draw a subset
-tracts <-  c(sample(boundaries[["tnr"]], 20), 10056)
+tracts <- c(sample(boundaries[["tnr"]], 20), 10056)
 
 # Calculate correction factors
 trees <- subset(trees, tnr \%in\% tracts)

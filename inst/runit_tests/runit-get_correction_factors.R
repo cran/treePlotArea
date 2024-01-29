@@ -21,6 +21,24 @@ if (interactive()) {
 
 
 test_get_correction_factor <- function() {
+    if (TRUE) {
+        # the test with "all data" selected from the data provided by gerald
+        # is given in the vignette:
+        angle_counts <- bw2bwi2022de(get(data("trees",
+                                              package = "treePlotArea")))
+        angle_counts <- select_valid_angle_count_trees(angle_counts)
+        boundaries <- get(data("boundaries", package = "treePlotArea"))
+        correction_factors <- get_correction_factors(angle_counts,
+                                                     boundaries,
+                                                     verbose = FALSE)
+        m <- merge(angle_counts[TRUE, c("tnr", "enr", "bnr",
+                                        "kf2", "pk", "stp")],
+                   correction_factors)
+        rdiff <- fritools::relative_difference(m[["correction_factor"]],
+                                               m[["kf2"]])
+        RUnit::checkTrue(all(abs(rdiff) < 0.001))
+    }
+
     tnr <- 10056
     enr <- 4
     bnr <- 3

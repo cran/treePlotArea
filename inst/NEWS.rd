@@ -1,6 +1,12 @@
 \name{NEWS}
 \title{NEWS}
 
+\section{Changes in version 2.0.0}{
+\itemize{
+\item Fixed checking for flexed boundaries running through the origin.
+}
+}
+
 \section{Changes in version 1.5.0}{
 \itemize{
 \item As requested by Gerald Kaendler, 'plot_tree_plot_area()' now plots all trees

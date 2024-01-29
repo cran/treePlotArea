@@ -1,3 +1,7 @@
+# treePlotArea 2.0.0
+
+* Fixed checking for flexed boundaries running through the origin.
+
 # treePlotArea 1.5.0
 
 * As requested by Gerald Kaendler, 'plot_tree_plot_area()' now plots all trees

@@ -35,6 +35,11 @@ azimuth values for start and end, and flexed boundaries where azimuth values
 for either start or end and the azimuth value for the nook are identical and
 the nook is farther away form the plot than the corresponding start or end.
 }
+\examples{
+data("boundaries", package = "treePlotArea")
+validate_data(x = boundaries)
+check_boundaries(boundaries)
+}
 \seealso{
 Other boundary functions: 
 \code{\link{get_boundary_polygons}()}
