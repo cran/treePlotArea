@@ -1,3 +1,10 @@
+# treePlotArea 2.1.0
+
+* Added argument `is_ti_round` defaulting to `TRUE` to 
+ `get_corrections_factors()` to allow for rounding the tree's boundary circle's 
+ radius to the unit (i.e. [cm]) as done by Thuenen Institute?
+
+
 # treePlotArea 2.0.0
 
 * Fixed checking for flexed boundaries running through the origin.

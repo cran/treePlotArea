@@ -2,6 +2,7 @@
 % Please edit documentation in R/treePlotArea-package.R
 \docType{package}
 \name{treePlotArea-package}
+\alias{treePlotArea}
 \alias{treePlotArea-package}
 \title{Correction Factors for Tree Plot Areas Intersected by Stand
 Boundaries}
@@ -28,5 +29,23 @@ Grosenbaugh, L. R. (1952): Plotless Timber Estimates -- New, Fast, Easy.
 Journal of Forestry.
 https://academic.oup.com/jof/article-abstract/50/1/32/4684174.
 }
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://gitlab.com/fvafrcu/treeplotarea.git}
+}
+
+}
+\author{
+\strong{Maintainer}: Andreas Dominik Cullmann \email{fvafrcu@mailbox.org}
+
+Other contributors:
+\itemize{
+  \item Bernhard Bösch [contributor]
+  \item Christoph Fischer [contributor]
+  \item Gerald Kändler [contributor]
+}
+
 }
 \keyword{package}

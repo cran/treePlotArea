@@ -1,6 +1,14 @@
 \name{NEWS}
 \title{NEWS}
 
+\section{Changes in version 2.1.0}{
+\itemize{
+\item Added argument \code{is_ti_round} defaulting to \code{TRUE} to
+\code{get_corrections_factors()} to allow for rounding the tree's boundary circle's
+radius to the unit (i.e. \link{cm}) as done by Thuenen Institute?
+}
+}
+
 \section{Changes in version 2.0.0}{
 \itemize{
 \item Fixed checking for flexed boundaries running through the origin.

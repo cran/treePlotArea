@@ -8,7 +8,8 @@ get_boundary_radius(
   dbh,
   unit = c("mm", "cm", "dm", "m"),
   counting_factor = 4,
-  area = 10000
+  area = 10000,
+  is_ti_round = TRUE
 )
 }
 \arguments{
@@ -20,6 +21,10 @@ get_boundary_radius(
 tally trees in the German national forest inventory its value is 4 [m^2].}
 
 \item{area}{The reference surface in [m^2].}
+
+\item{is_ti_round}{When checking for the boundary circle of a tree to include
+the center of the plot: round that circle's radius to the unit (i.e. [cm])
+as done by Thuenen Institute?}
 }
 \value{
 Minimum diameter at breast height in \code{units}.
@@ -36,6 +41,9 @@ square meters as long as they are in the same unit.
 \examples{
 # A diameter at breast height of 50.5 cm
 get_boundary_radius(505, unit  = "m")
+get_boundary_radius(505, unit  = "m", is_ti_round = FALSE)
 get_boundary_radius(1000, unit  = "cm")
+get_boundary_radius(973, unit  = "cm")
+get_boundary_radius(973, unit  = "cm", is_ti_round = FALSE)
 }
 \keyword{internal}

@@ -15,11 +15,15 @@
 #' @examples
 #' # A diameter at breast height of 50.5 cm
 #' get_boundary_radius(505, unit  = "m")
+#' get_boundary_radius(505, unit  = "m", is_ti_round = FALSE)
 #' get_boundary_radius(1000, unit  = "cm")
+#' get_boundary_radius(973, unit  = "cm")
+#' get_boundary_radius(973, unit  = "cm", is_ti_round = FALSE)
 get_boundary_radius <- function(dbh, unit = c("mm", "cm",
                                               "dm", "m"),
                                 counting_factor = 4,
-                                area = 1e04) {
+                                area = 1e04,
+                                is_ti_round = TRUE) {
     u <- match.arg(unit)
 
     res <- .get_boundary_radius(dbh = dbh / 1000, area = area,
@@ -30,6 +34,7 @@ get_boundary_radius <- function(dbh, unit = c("mm", "cm",
                   "dm" = res * 10,
                   "m" = res)
     attr(res, "unit") <- u
+    if (isTRUE(is_ti_round)) res <- round(res)
     return(res)
 }
 

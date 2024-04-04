@@ -22,7 +22,7 @@ is_tree_behind_a_boundary <- function(tree, boundaries) {
                ))
 }
 
-check_tree <- function(x) {
+check_tree <- function(x, is_ti_round = TRUE) {
     options <- get_options("angle_counts")
     status_codes <- get_status_codes()
     if (x[[options[["azimuth"]]]] < 0 ||
@@ -34,7 +34,8 @@ check_tree <- function(x) {
         res <- status_codes[["dbh missing"]]
     } else if (x[[options[["dbh"]]]] <= 0) {
         res <- status_codes[["dbh <= 0"]]
-    } else if (get_boundary_radius(x[[options[["dbh"]]]], unit = "cm") <
+    } else if (get_boundary_radius(x[[options[["dbh"]]]], unit = "cm",
+                                   is_ti_round = is_ti_round) <
                x[[options[["distance"]]]]) {
         res <- status_codes[["corner's center outside tree's plot area"]]
     } else {
@@ -44,7 +45,8 @@ check_tree <- function(x) {
 }
 
 get_correction_factor <- function(x, boundaries, stop_on_error = FALSE,
-                                  is_skip_check = FALSE, counting_factor = 4) {
+                                  is_skip_check = FALSE, counting_factor = 4,
+                                  is_ti_round = TRUE) {
     options <- get_options("angle_counts")
     status_codes <- get_status_codes()
     if (inherits(boundaries, "boundaries")) {
@@ -57,7 +59,7 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE,
     } else {
         tree <- as.data.frame(as.list(x))
     }
-    check <- check_tree(tree)
+    check <- check_tree(x = tree, is_ti_round = is_ti_round)
     if (fritools::is_success(check) || isTRUE(is_skip_check)) {
         t <- as.character(tree[[options[["tract_id"]]]])
         e <- as.character(tree[[options[["corner_id"]]]])
@@ -117,6 +119,9 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE,
 #' @param counting_factor The basal area factor used in counting the trees. For
 #' tally trees in the German national forest inventory its value is 4 [m^2].
 #' @param stop_on_error Passed to \code{\link{get_boundary_polygons}}.
+#' @param is_ti_round When checking for the boundary circle of a tree to include
+#' the center of the plot: round that circle's radius to the unit (i.e. [cm])
+#' as done by Thuenen Institute?
 #' @param skip_check We usually check if the angle counts are
 #' suitable
 #' (for example whether a diameter at breast height, a horizontal distance and
@@ -162,7 +167,7 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE,
 #'                      TRUE]
 #' get_correction_factors(tree, bounds)
 #'
-#' # Dead wood plots:
+#' # Deadwood plots:
 #' dead_wood_plots <- unique(trees[TRUE, c("tnr", "enr")])
 #' dead_wood_plots[["bnr"]] <- 0
 #' dead_wood_plots[["hori"]] <- 0
@@ -182,7 +187,8 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE,
 get_correction_factors <- function(angle_counts, boundaries,
                                    verbose = TRUE, stop_on_error = FALSE,
                                    skip_check = FALSE,
-                                   counting_factor = 4) {
+                                   counting_factor = 4,
+                                   is_ti_round = TRUE) {
     options <- get_options("angle_counts")
     status_codes <- get_status_codes()
     if (inherits(boundaries, "boundaries")) {
@@ -205,7 +211,8 @@ get_correction_factors <- function(angle_counts, boundaries,
         t <- angle_counts[i, TRUE]
         cf <- tryCatch(get_correction_factor(t, boundary_polygons,
                                              is_skip_check = skip_check,
-                                             counting_factor = counting_factor),
+                                             counting_factor = counting_factor,
+                                             is_ti_round = is_ti_round),
                        error = error_func(status_codes))
         correction_factor <- rbind(correction_factor,
                                    cbind(t[[options[["tract_id"]]]],

@@ -10,7 +10,8 @@ get_correction_factors(
   verbose = TRUE,
   stop_on_error = FALSE,
   skip_check = FALSE,
-  counting_factor = 4
+  counting_factor = 4,
+  is_ti_round = TRUE
 )
 }
 \arguments{
@@ -46,6 +47,10 @@ corner) is intersected by a boundary.}
 
 \item{counting_factor}{The basal area factor used in counting the trees. For
 tally trees in the German national forest inventory its value is 4 [m^2].}
+
+\item{is_ti_round}{When checking for the boundary circle of a tree to include
+the center of the plot: round that circle's radius to the unit (i.e. [cm])
+as done by Thuenen Institute?}
 }
 \value{
 A  \code{\link{data.frame}} containing the correction factors and a
@@ -95,7 +100,7 @@ bounds <- boundaries[boundaries[["tnr"]] == tnr & boundaries[["enr"]] == enr,
                      TRUE]
 get_correction_factors(tree, bounds)
 
-# Dead wood plots:
+# Deadwood plots:
 dead_wood_plots <- unique(trees[TRUE, c("tnr", "enr")])
 dead_wood_plots[["bnr"]] <- 0
 dead_wood_plots[["hori"]] <- 0
