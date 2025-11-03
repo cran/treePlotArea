@@ -1,6 +1,18 @@
 \name{NEWS}
 \title{NEWS}
 
+\section{Changes in version 3.0.0}{
+\itemize{
+\item Incorporate gitlab issues #1, #2 and partly #3: make \code{plot_tree_plot_area}
+\itemize{
+\item use asp = TRUE,
+\item have an argument \code{counting_factor}
+\item return a list with the plot's boundaries and trees alongside the correction
+factors instead of a vector of correction factors.
+}
+}
+}
+
 \section{Changes in version 2.1.0}{
 \itemize{
 \item Added argument \code{is_ti_round} defaulting to \code{TRUE} to

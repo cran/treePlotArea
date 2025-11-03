@@ -13,10 +13,10 @@ bounds <- boundaries[boundaries$tnr == tnr & boundaries$enr == enr, TRUE]
 result <- plot_tree_plot_area(angle_counts = trees, boundaries = boundaries,
                     tnr = tnr, enr = enr, bnr = bnr)
 expectation <- get_correction_factors(trees[trees$bnr == bnr, TRUE], bounds)
-expect_identical(result, expectation$correction_factor)
+expect_identical(result$correction_factors, expectation$correction_factor)
 
 
 result <- plot_tree_plot_area(angle_counts = trees, boundaries = boundaries,
                     tnr = tnr, enr = enr)
 expectation <- get_correction_factors(trees, bounds)
-expect_identical(result, expectation$correction_factor)
+expect_identical(result$correction_factors, expectation$correction_factor)

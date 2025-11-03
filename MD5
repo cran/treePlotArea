@@ -1,7 +1,7 @@
-e5172b5827949405ebffb3eb6d18222e *DESCRIPTION
+cf76cf5af374b076ce3997a2e40d38ad *DESCRIPTION
 ee74b92031d75cdfe003edd05d13be44 *LICENSE
 579d83f930145e07a09110b8186aa042 *NAMESPACE
-3c5244dfcfff738b8370858ec1de4a8e *NEWS.md
+89e4e58b8f071b68729fca2d89aae0e3 *NEWS.md
 cdf9cd05c934a2d17363c408f0994548 *R/add_boundaries_to_plot.R
 559eca74f8ddf8d89290bdce69c49c37 *R/boundaries2coords.R
 875571a4f3cf7d9c34cca17620a9dafb *R/boundaries2polygons.R
@@ -30,7 +30,7 @@ fe3cf864a7e7c655550d96babe1606a7 *R/get_r_max.R
 b8e34e62dda83c8cf399a354f36271bc *R/is_boundary_encloses_origin.R
 634b2feae1165b07db7a5ef798be8b84 *R/options.R
 ed905a9a6e6948355edad6c0488dd072 *R/orthogonal.R
-1ab356b2f43de27baab844a0ece6e0eb *R/plot_tree_plot_area.R
+a4a4a3d11b2baa0de49364bd0b6ea3a1 *R/plot_tree_plot_area.R
 783bcc53fda3d094a96f5b94c06048fe *R/points2equation.R
 635eb8c01ba5ff9ccb9c68a8e0629211 *R/polar2cartesian.R
 48a9de6f975ef4acb3a862064ab7bd1a *R/secant_intersections.R
@@ -44,14 +44,14 @@ a249e8d45c4a708e0c0a5ed8f9630a92 *R/treePlotArea-package.R
 c0baf173f83747180a9726056bfc5823 *R/validate_data.R
 6761534876cac5143e7de9dd4df40f52 *R/vector_length.R
 a26803817051b4ef07859662b4c7e37c *README.md
-1f28fdb741a6693ec22e814289ab906d *build/vignette.rds
+9e48c866a877d6b49d1289185ac549d7 *build/vignette.rds
 8d18cd1fa7e245a66bea23eb933fb797 *data/boundaries.rda
 c393b785ec2c7c36ed6736e823fe3706 *data/trees.rda
-ee5b671e8f54822b1baf73c76c39e0fc *inst/NEWS.rd
+bb20fc7ad5cbc7881104e20f9a5a06eb *inst/NEWS.rd
 9ea7537864cf5d916e836606013d3916 *inst/WORDLIST
 52534adb21e79011a15f644ae88e9153 *inst/doc/An_Introduction_to_treePlotArea.R
 6687481cbd131c89553548126da97364 *inst/doc/An_Introduction_to_treePlotArea.Rnw
-b3306897d6f92c4ed5f6a29fb9c692fc *inst/doc/An_Introduction_to_treePlotArea.pdf
+1ee48ee2d2226146a40e65621134291a *inst/doc/An_Introduction_to_treePlotArea.pdf
 48c22c21bd9572bc3a221bb0efe56195 *inst/grenzkreis_dll.R
 cadd6958affd2ac974b3f4ca3361f23d *inst/runit_tests/runit-get_boundary_polygons.R
 0705ac2975b807b1811b01944d3d8960 *inst/runit_tests/runit-get_boundary_radius.R
@@ -62,7 +62,7 @@ cadd6958affd2ac974b3f4ca3361f23d *inst/runit_tests/runit-get_boundary_polygons.R
 9cd3a27d50bbaa339e65fb68f46e5508 *inst/tinytest/data/wzp_te_62541_1.csv
 1ac8a7789f45d0e9f5f51906b25387c9 *inst/tinytest/test_check_boundaries.R
 b442488c7765515c8bdc6db491d29895 *inst/tinytest/test_get_boundary_radius.R
-b7019bfdabf9e4ed571bedac65140e29 *inst/tinytest/test_plot.R
+d028f2accfd84c29292d20ee0f9ac36f *inst/tinytest/test_plot.R
 ff678c4e737fe9b52a36360cae771add *inst/tinytest/test_throw.R
 eaaede3e0c43492f274ae10d48c2328d *inst/vignettes_code/An_Introduction_to_treePlotArea.R
 727606227fcf6a12885c613b86019cf9 *man/boundaries.Rd
@@ -76,7 +76,7 @@ a6516944c02341074eb8210d29565935 *man/get_defaults.Rd
 ec49803f358f165dc302cb0b777499b8 *man/get_intersection.Rd
 1570fe02d54a12ebcce665653bc31e5a *man/get_r_max.Rd
 432488fd2ad234541a8611a912962510 *man/orthogonal.Rd
-3271565d9d6dcf83710a985924e28bc4 *man/plot_tree_plot_area.Rd
+c2228a20e2e6ed8afeb647d38d39a95c *man/plot_tree_plot_area.Rd
 55f7db157eb7bb50f21b07b47f964841 *man/points2equation.Rd
 a261ce15bc611b1904b4d331b116bbfa *man/secant_intersections.Rd
 a199de8563d38ad8c87762d5a699d41a *man/select_valid_angle_count_trees.Rd

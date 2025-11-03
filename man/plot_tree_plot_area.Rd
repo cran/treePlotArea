@@ -11,7 +11,8 @@ plot_tree_plot_area(
   enr,
   bnr = NULL,
   frame_factor = 1,
-  use_sub = NULL
+  use_sub = NULL,
+  counting_factor = 4
 )
 }
 \arguments{
@@ -43,9 +44,14 @@ output of
 with the default.}
 
 \item{use_sub}{Deprecated.}
+
+\item{counting_factor}{The basal area factor used in counting the trees. For
+tally trees in the German national forest inventory its value is 4 [m^2].}
 }
 \value{
-The corrections factors for the trees' plot areas.
+A list with the corrections factors for the plot's trees' plot areas,
+the plot's trees
+and the plot's boundaries.
 }
 \description{
 Visualize a corner, its boundaries and tree plot areas.
@@ -55,12 +61,20 @@ tnr <- 166
 enr <- 2
 bnr <- 7
 angle_counts <- bw2bwi2022de(get(data("trees", package = "treePlotArea")))
+boundaries <- get(data("boundaries", package = "treePlotArea"))
 plot_tree_plot_area(angle_counts = angle_counts,
-                    boundaries = get(data("boundaries",
-                                          package = "treePlotArea")),
+                    boundaries = boundaries,
                     tnr =  tnr, enr = enr, bnr = bnr, frame_factor = 4)
 plot_tree_plot_area(angle_counts = angle_counts,
-                    boundaries = get(data("boundaries",
-                                          package = "treePlotArea")),
+                    boundaries = boundaries,
+                    tnr =  tnr, enr = enr, frame_factor = 1)
+tnr <- 9823
+enr <- 1
+bnr <- 2
+plot_tree_plot_area(angle_counts = angle_counts,
+                    boundaries = boundaries,
+                    tnr =  tnr, enr = enr, bnr = bnr, frame_factor = 4)
+plot_tree_plot_area(angle_counts = angle_counts,
+                    boundaries = boundaries,
                     tnr =  tnr, enr = enr, frame_factor = 1)
 }

@@ -1,3 +1,11 @@
+# treePlotArea 3.0.0
+
+* Incorporate gitlab issues #1, #2 and partly #3: make `plot_tree_plot_area`
+  - use asp = TRUE,
+  - have an argument `counting_factor`
+  - return a list with the plot's boundaries and trees alongside the correction
+    factors instead of a vector of correction factors.
+
 # treePlotArea 2.1.0
 
 * Added argument `is_ti_round` defaulting to `TRUE` to 
