@@ -3,10 +3,10 @@
 #' The boundary radius is the maximum distance a tree with a given diameter at
 #' breast height may be
 #' away from the center of the plot to still be part of the sample.
-#' @param dbh Diameter at breast height in millimeter.
+#' @param dbh Diameter at breast height in [millimeter].
 #' @param unit The unit for the return value.
 #' @inheritParams get_correction_factors
-#' @param area The reference surface in [m^2].
+#' @param area The reference surface in [m^2]. Leave alone.
 #' @details \code{counting_factor} and \code{area} really don't have to be
 #' square meters as long as they are in the same unit.
 #' @return Minimum diameter at breast height in \code{units}.
@@ -14,11 +14,10 @@
 #' @keywords internal
 #' @examples
 #' # A diameter at breast height of 50.5 cm
+#' get_boundary_radius(505, unit = "mm")
+#' get_boundary_radius(505, unit = "cm")
 #' get_boundary_radius(505, unit  = "m")
 #' get_boundary_radius(505, unit  = "m", is_ti_round = FALSE)
-#' get_boundary_radius(1000, unit  = "cm")
-#' get_boundary_radius(973, unit  = "cm")
-#' get_boundary_radius(973, unit  = "cm", is_ti_round = FALSE)
 get_boundary_radius <- function(dbh, unit = c("mm", "cm",
                                               "dm", "m"),
                                 counting_factor = 4,

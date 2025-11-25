@@ -1,4 +1,4 @@
-create_triangle <- function(xy1xy0xy2, verbose = FALSE, r = 2 * get_r_max()) {
+create_triangle <- function(xy1xy0xy2, verbose = FALSE, r) {
     if (isTRUE(verbose)) message("# is acute angle -> triangle will do")
     # first side
     straight_line <- points2equation(c(xy1xy0xy2["x1"], xy1xy0xy2["y1"]),

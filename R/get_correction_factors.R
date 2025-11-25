@@ -22,7 +22,7 @@ is_tree_behind_a_boundary <- function(tree, boundaries) {
                ))
 }
 
-check_tree <- function(x, is_ti_round = TRUE) {
+check_tree <- function(x, is_ti_round = TRUE, counting_factor = 4) {
     options <- get_options("angle_counts")
     status_codes <- get_status_codes()
     if (x[[options[["azimuth"]]]] < 0 ||
@@ -34,8 +34,9 @@ check_tree <- function(x, is_ti_round = TRUE) {
         res <- status_codes[["dbh missing"]]
     } else if (x[[options[["dbh"]]]] <= 0) {
         res <- status_codes[["dbh <= 0"]]
-    } else if (get_boundary_radius(x[[options[["dbh"]]]], unit = "cm",
-                                   is_ti_round = is_ti_round) <
+    } else if (get_boundary_radius(dbh = x[[options[["dbh"]]]], unit = "cm",
+                                   is_ti_round = is_ti_round,
+                                   counting_factor = counting_factor) <
                x[[options[["distance"]]]]) {
         res <- status_codes[["corner's center outside tree's plot area"]]
     } else {
@@ -59,7 +60,8 @@ get_correction_factor <- function(x, boundaries, stop_on_error = FALSE,
     } else {
         tree <- as.data.frame(as.list(x))
     }
-    check <- check_tree(x = tree, is_ti_round = is_ti_round)
+    check <- check_tree(x = tree, is_ti_round = is_ti_round,
+                        counting_factor = counting_factor)
     if (fritools::is_success(check) || isTRUE(is_skip_check)) {
         t <- as.character(tree[[options[["tract_id"]]]])
         e <- as.character(tree[[options[["corner_id"]]]])

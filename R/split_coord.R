@@ -1,6 +1,6 @@
-split_coord <- function(coord) {
+split_coord <- function(coord, counting_factor) {
     # split a triple of coords into to lines
-    if (isTRUE(do_split(coord))) {
+    if (isTRUE(do_split(coord, counting_factor))) {
         res <- data.frame(x1 = c(coord[["x1"]], coord[["x0"]]),
                           y1 = c(coord[["y1"]], coord[["y0"]]),
                           x0 = c(NA, NA),

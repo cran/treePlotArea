@@ -9,8 +9,8 @@
 #' @export
 #' @keywords internal
 #' @examples
-#' get_r_max()
-get_r_max <- function(counting_factor = 4, area = 1e04) {
+#' get_r_max(counting_factor = 4)
+get_r_max <- function(counting_factor, area = 1e04) {
     # Unit needs to be centimeter as this is the way the horizontal distance is
     # recorded.
     # A tree with a diameter at breast height of 2000 millimeter.

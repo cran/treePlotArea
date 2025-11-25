@@ -56,8 +56,10 @@ plot_tree_plot_area <- function(angle_counts, boundaries, tnr, enr, bnr = NULL,
     bl <- get_boundary_polygons(bounds)
     correction_factors <- NULL
     plot(0, 0, col = col_plot1, pch = "+",
-         xlim = c(-get_r_max() * frame_factor, get_r_max() * frame_factor),
-         ylim = c(-get_r_max() * frame_factor, get_r_max() * frame_factor),
+         xlim = c(-get_r_max(counting_factor = counting_factor) * frame_factor,
+                  get_r_max(counting_factor = counting_factor) * frame_factor),
+         ylim = c(-get_r_max(counting_factor = counting_factor) * frame_factor,
+                  get_r_max(counting_factor = counting_factor) * frame_factor),
          xlab = "x [cm]", ylab = "y [cm]", asp = TRUE)
     if (!is.null(bnr)) {
         trees <- trees[trees[[o_a[["tree_id"]]]] == bnr, TRUE]
@@ -76,16 +78,16 @@ plot_tree_plot_area <- function(angle_counts, boundaries, tnr, enr, bnr = NULL,
     if (!identical(nrow(bounds), 0L)) {
         coords <- boundaries2coords(bounds)
         add_boundaries_to_plot(coords)
-        coords_split <- split_coords(coords)
+        coords_split <- split_coords(coords, counting_factor = counting_factor)
         add_boundaries_to_plot(as.data.frame(coords_split),
                                col = c(col_border_tetragon,
                                        col_border_pentagon))
-        b <- boundaries2polygons(bounds)
+        b <- boundaries2polygons(bounds, counting_factor = counting_factor)
         plot(sf::st_polygon(b), add = TRUE, border = col_boundaries)
     }
-    plot(sf::st_polygon(list(circle2polygon(r = get_r_max()))),
+    plot(sf::st_polygon(list(circle2polygon(r = get_r_max(counting_factor = counting_factor)))),
          add = TRUE, border = col_plot1)
-    plot(sf::st_polygon(list(circle2polygon(r = 2 * get_r_max()))),
+    plot(sf::st_polygon(list(circle2polygon(r = 2 * get_r_max(counting_factor = counting_factor)))),
          add = TRUE, border = col_plot2)
     graphics::abline(h = 0, col = col_plot1)
     graphics::abline(v = 0, col = col_plot1)

@@ -4,7 +4,12 @@
 \alias{get_boundary_polygons}
 \title{Convert Boundaries to Polygons}
 \usage{
-get_boundary_polygons(boundaries, stop_on_error = TRUE, clean_data = FALSE)
+get_boundary_polygons(
+  boundaries,
+  stop_on_error = TRUE,
+  clean_data = FALSE,
+  counting_factor = 4
+)
 }
 \arguments{
 \item{boundaries}{A \code{\link{data.frame}} containing boundaries.
@@ -23,6 +28,9 @@ database for the 2012 survey, runs through the plot.
 There is no stand defined that way!).}
 
 \item{clean_data}{Omit invalid boundaries in any further calculations?}
+
+\item{counting_factor}{The basal area factor used in counting the trees. For
+tally trees in the German national forest inventory its value is 4 [m^2].}
 }
 \value{
 A list with all boundary polygons for each corner for each tract.

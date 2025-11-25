@@ -1,3 +1,10 @@
+# treePlotArea 3.1.0
+
+* Internal optimization: Now passing down argument `counting_factor` from 
+  `get_correction_factors()` to `get_correction_factor()` to  `check_tree()` to
+  `get_boundary_radius()` and to all calls to  `get_r_max()`.
+
+
 # treePlotArea 3.0.0
 
 * Incorporate gitlab issues #1, #2 and partly #3: make `plot_tree_plot_area`

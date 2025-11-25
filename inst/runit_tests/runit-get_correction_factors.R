@@ -38,6 +38,20 @@ test_get_correction_factor <- function() {
                                                m[["kf2"]])
         RUnit::checkTrue(all(abs(rdiff) < 0.001))
     }
+    angle_counts <- bw2bwi2022de(get(data("trees",
+                                          package = "treePlotArea")))
+    angle_counts <- select_valid_angle_count_trees(angle_counts)
+    boundaries <- get(data("boundaries", package = "treePlotArea"))
+    result <- get_correction_factors(angle_counts,
+                                          boundaries,
+                                          verbose = FALSE)
+    expectation_file <- system.file("runit_tests", "data", "correction_factors.R", package = "treePlotArea")
+    if (FALSE) {
+        expectation <- result
+        dump("expectation", expectation_file)
+    }
+    source(expectation_file)
+    RUnit::checkEquals(result, expectation)
 
     tnr <- 10056
     enr <- 4

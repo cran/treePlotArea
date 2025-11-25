@@ -16,7 +16,7 @@
 #' boundaries <- get(data("boundaries", package = "treePlotArea"))
 #' boundary_polygons <- get_boundary_polygons(boundaries)
 get_boundary_polygons <- function(boundaries, stop_on_error = TRUE,
-                                  clean_data = FALSE) {
+                                  clean_data = FALSE, counting_factor = 4) {
     options <- get_options("boundaries")
     current_boundaries <- get_current_boundaries(boundaries)
     current_boundaries <- check_boundaries(current_boundaries,
@@ -30,6 +30,7 @@ get_boundary_polygons <- function(boundaries, stop_on_error = TRUE,
                                 fritools::tapply(boundaries,
                                                  boundaries[[corner]],
                                                  boundaries2polygons,
+                                                 counting_factor = counting_factor,
                                                  simplify = FALSE)
                             },
                             simplify = FALSE)

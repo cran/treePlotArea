@@ -1,6 +1,14 @@
 \name{NEWS}
 \title{NEWS}
 
+\section{Changes in version 3.1.0}{
+\itemize{
+\item Internal optimization: Now passing down argument \code{counting_factor} from
+\code{get_correction_factors()} to \code{get_correction_factor()} to  \code{check_tree()} to
+\code{get_boundary_radius()} and to all calls to  \code{get_r_max()}.
+}
+}
+
 \section{Changes in version 3.0.0}{
 \itemize{
 \item Incorporate gitlab issues #1, #2 and partly #3: make \code{plot_tree_plot_area}

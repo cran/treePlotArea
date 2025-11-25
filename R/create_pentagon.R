@@ -1,4 +1,4 @@
-create_pentagon <- function(xy1xy0xy2, verbose = FALSE, r = 2 * get_r_max()) {
+create_pentagon <- function(xy1xy0xy2, verbose = FALSE, r) {
     triangle <- create_triangle(xy1xy0xy2, verbose = verbose, r = r)
     xy1xy2 <- c(triangle[2, TRUE], triangle[3, TRUE])
     names(xy1xy2) <- c("x1", "y1", "x2", "y2")

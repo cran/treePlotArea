@@ -1,4 +1,4 @@
-create_tetragon <- function(xy1xy2, verbose = FALSE, r = 2 * get_r_max()) {
+create_tetragon <- function(xy1xy2, verbose = FALSE, r) {
     if (isTRUE(verbose)) message("# is one line -> need tetragon")
     straight_line <- points2equation(c(xy1xy2["x1"], xy1xy2["y1"]),
                                      c(xy1xy2["x2"], xy1xy2["y2"]))

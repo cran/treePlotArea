@@ -13,14 +13,14 @@ get_boundary_radius(
 )
 }
 \arguments{
-\item{dbh}{Diameter at breast height in millimeter.}
+\item{dbh}{Diameter at breast height in [millimeter].}
 
 \item{unit}{The unit for the return value.}
 
 \item{counting_factor}{The basal area factor used in counting the trees. For
 tally trees in the German national forest inventory its value is 4 [m^2].}
 
-\item{area}{The reference surface in [m^2].}
+\item{area}{The reference surface in [m^2]. Leave alone.}
 
 \item{is_ti_round}{When checking for the boundary circle of a tree to include
 the center of the plot: round that circle's radius to the unit (i.e. [cm])
@@ -40,10 +40,9 @@ square meters as long as they are in the same unit.
 }
 \examples{
 # A diameter at breast height of 50.5 cm
+get_boundary_radius(505, unit = "mm")
+get_boundary_radius(505, unit = "cm")
 get_boundary_radius(505, unit  = "m")
 get_boundary_radius(505, unit  = "m", is_ti_round = FALSE)
-get_boundary_radius(1000, unit  = "cm")
-get_boundary_radius(973, unit  = "cm")
-get_boundary_radius(973, unit  = "cm", is_ti_round = FALSE)
 }
 \keyword{internal}
